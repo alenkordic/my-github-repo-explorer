@@ -1,4 +1,4 @@
-import { repositoryItemsType } from "./../types";
+import { repositoryItemsType , repositoryItemType } from "./../types";
 
 export const mapResponseItemToTableData = (
   responseItems: []
@@ -15,25 +15,24 @@ export const mapResponseItemToTableData = (
   });
 };
 
+export const mapResponseItemToDetailsData = (
+  responseItem: any
+): repositoryItemType => {
 
-export function debounce<A = unknown, R = void>(
-    fn: (args: A) => R,
-    ms: number
-): [(args: A) => Promise<R>, () => void] {
-    let timer: NodeJS.Timeout;
-
-    const debouncedFunc = (args: A): Promise<R> =>
-        new Promise((resolve) => {
-            if (timer) {
-                clearTimeout(timer);
-            }
-
-            timer = setTimeout(() => {
-                resolve(fn(args));
-            }, ms);
-        });
-
-    const teardown = () => clearTimeout(timer);
-
-    return [debouncedFunc, teardown];
-}
+    return {
+      id: responseItem.id,
+      name: responseItem.name,
+      owner: responseItem.owner.login,
+      ownerType: responseItem.owner.type,
+      ownersUrl:responseItem.owner.html_url,
+      avatar: responseItem.owner.avatar_url,
+      description: responseItem.description,
+      url: responseItem.html_url,
+      createdAt: responseItem.created_at,
+      updatedAt: responseItem.updated_at,
+      watchers: responseItem.watchers_count,
+      forks: responseItem.forks_count,
+      visibility: responseItem.visibility,
+      issues: responseItem.open_issues_count,
+    };
+};

@@ -36,8 +36,16 @@ const TableRowItem = ({
 
           <Grid item flexGrow={1}>
             <Box ml={2} className={classes.root}>
-              <Grid item >
-                <Typography className={classes.name} variant="h6">{name}</Typography>
+              <Grid item>
+                <Typography classes={{ h6: classes.nameText }} variant="body1" sx = {{fontWeight: 700, fontSize: 14}}>
+                  {name}
+                </Typography>
+              </Grid>
+
+              <Grid item>
+                <Typography classes={{ h6: classes.nameText }} variant="subtitle1" sx = {{fontWeight: 200, fontSize: 11, color: "lightgray"}}>
+                  by: {owner} ({ownerType})
+                </Typography>
               </Grid>
               <Grid item>
                 <div className={classes.descriptionText}>
@@ -57,7 +65,7 @@ const TableRowItem = ({
 
           <Grid item display="flex" alignItems="center">
             <Box ml={2}>
-              <Link to={`/repositories/${id}`}>
+              <Link to={`/repositories/${owner}/${name}`}>
                 <InfoIcon color="disabled" />
               </Link>
             </Box>

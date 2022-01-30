@@ -21,6 +21,22 @@ export type repositoryItemsType = {
   owner: string;
   ownerType: string;
 }
+export type repositoryItemType = {
+  avatar: string;
+  description: string;
+  id: number;
+  name: string;
+  owner: string;
+  ownerType: string;
+  url: string;
+  ownersUrl: string;
+  createdAt: string;
+  updatedAt: string;
+  watchers: number;
+  forks: number;
+  visibility: number;
+  issues: number;
+}
 
 export type RepositoriesType = {
   incomplete_results: boolean;

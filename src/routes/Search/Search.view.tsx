@@ -27,10 +27,11 @@ const SearchView = ({
   page,
 }: SearchViewProps) => {
   return (
-    <>
-    <Box mb={5}>
+    <Box display="flex" flexDirection="column" alignItems="center" maxWidth={560} m="0 auto" px={3}>
+    <Box mb={5} width="100%">
       <SearchInputField onChange={onInputChange} value={searchInputValue} />
     </Box>
+    <Box mb={5}  width="100%">
       <Table
         repositories={repositories}
         isDataLoading={isDataLoading}
@@ -39,7 +40,8 @@ const SearchView = ({
         rowsPerPage={rowsPerPage}
         page={page}
       />
-    </>
+    </Box>
+    </Box>
   );
 };
 

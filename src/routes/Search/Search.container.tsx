@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 import SearchView from "./Search.view";
 
 import { getRepositories } from "./../../services/api";
-import { debounce } from "../../utils/utils";
 
 const SearchContainer = () => {
   const [searchString, setSearchString] = useState("");

@@ -69,7 +69,7 @@ const Table = ({
       </TableContainer>
 
 
-      <TablePagination
+      {/* <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
         count={repositories.total_count}
@@ -77,7 +77,7 @@ const Table = ({
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      /> */}
     </Paper>
   );
 };
