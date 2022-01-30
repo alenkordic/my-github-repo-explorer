@@ -11,15 +11,15 @@ const SearchContainer = () => {
   const [searchStringToSend, setSearchStringToSend] = useState("");
   const [inputTouched, setInputTouched] = useState(false);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
   const {
     isLoading,
     data: repositories,
     isFetching,
   } = useQuery(
-    ["repositories", searchStringToSend],
-    () => getRepositories(searchStringToSend),
+    ["repositories", searchStringToSend, page, rowsPerPage],
+    () => getRepositories(searchStringToSend, page, rowsPerPage),
     {
       staleTime: 10000
     }
@@ -52,6 +52,7 @@ const SearchContainer = () => {
       setRowsPerPage={setRowsPerPage}
       rowsPerPage={rowsPerPage}
       page={page}
+      responseTime={repositories?.duration}
     />
   );
 };

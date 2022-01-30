@@ -36,3 +36,9 @@ export const mapResponseItemToDetailsData = (
       issues: responseItem.open_issues_count,
     };
 };
+
+
+export const displaySecondsFromMilis = (timestampInMilis:number):number => {
+  const timeInSeconds = (timestampInMilis/1000).toFixed(3)
+  return  parseFloat(timeInSeconds)
+}

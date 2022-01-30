@@ -14,6 +14,7 @@ interface SearchViewProps {
   searchInputValue: string;
   rowsPerPage: number;
   page: number;
+  responseTime: number;
 }
 
 const SearchView = ({
@@ -25,6 +26,7 @@ const SearchView = ({
   setRowsPerPage,
   rowsPerPage,
   page,
+  responseTime
 }: SearchViewProps) => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center" maxWidth={560} m="0 auto" px={3}>
@@ -39,6 +41,7 @@ const SearchView = ({
         setRowsPerPage={setRowsPerPage}
         rowsPerPage={rowsPerPage}
         page={page}
+        responseTime={responseTime}
       />
     </Box>
     </Box>
