@@ -1,5 +1,9 @@
 import React from "react";
 
+import {auth} from "./../../services/api"
+
+import { LoginButton } from "./../../components";
+
 import useStyles from "./NavigationBar.styles";
 import {
   Box,
@@ -12,6 +16,10 @@ import {
 
 const NavigationBar = () => {
   const classes = useStyles();
+
+  const handleLoginClick = ()=> {
+    auth()
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }} mb={5}>
@@ -30,7 +38,8 @@ const NavigationBar = () => {
             News
           </Typography>
           <Button color="inherit">Login</Button> */}
-          
+          <LoginButton />
+          {/* <Button color="inherit" onClick={handleLoginClick}>Login</Button> */}
         </Toolbar>
       </AppBar>
     </Box>

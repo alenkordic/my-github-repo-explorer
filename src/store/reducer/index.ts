@@ -10,6 +10,27 @@ const repoExplorerReducer = (state: StateType, action: Action) => {
         darkMode: !state.darkMode,
       };
 
+    case ACTION_TYPES.LOGIN: {
+      localStorage.setItem(
+        "isLoggedIn",
+        JSON.stringify(action.payload.isLoggedIn)
+      );
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      return {
+        ...state,
+        isLoggedIn: action.payload.isLoggedIn,
+        user: action.payload.user,
+      };
+    }
+    case ACTION_TYPES.LOGOUT: {
+      localStorage.clear();
+      return {
+        ...state,
+        isLoggedIn: false,
+        user: null,
+      };
+    }
+
     default:
       return state;
   }

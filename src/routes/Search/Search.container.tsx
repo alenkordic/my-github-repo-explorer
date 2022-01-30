@@ -2,6 +2,9 @@ import React, { useState, useEffect, useMemo } from "react";
 
 import { useQuery } from "react-query";
 
+
+
+
 import SearchView from "./Search.view";
 
 import { getRepositories } from "./../../services/api";
@@ -13,20 +16,19 @@ const SearchContainer = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
-  const {
-    isLoading,
-    data: repositories,
-    isFetching,
-  } = useQuery(
+  const { isLoading, data: repositories } = useQuery(
     ["repositories", searchStringToSend, page, rowsPerPage],
     () => getRepositories(searchStringToSend, page, rowsPerPage),
     {
-      staleTime: 10000
+      staleTime: 10000,
     }
   );
 
+ 
+
+
   const onInputChangeHandler = (string: string) => {
-    setSearchString(string)
+    setSearchString(string);
   };
 
   useEffect(() => {

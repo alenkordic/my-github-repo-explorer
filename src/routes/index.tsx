@@ -1,10 +1,18 @@
 import React from "react";
 import { Routes as ReactRoutes, Link, Navigate, Route } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Search from "./Search";
 import Details from "./Details";
 import { NavigationBar } from "../components";
 
 const Routes = () => {
+
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  if (searchParams) {
+    console.log("searchParams",searchParams.get('code'))
+  }
+
   return (
     <div>
       <NavigationBar />

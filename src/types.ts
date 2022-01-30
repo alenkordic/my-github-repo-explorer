@@ -1,11 +1,24 @@
 export type StateType = {
   darkMode: boolean;
-  isAuthenticatedUser: boolean;
+  isLoggedIn: any;
+  user: any;
+  client_id: any;
+  redirect_uri: any;
+  client_secret: any;
+  proxy_url: any;
+  // darkMode: boolean;
+  // isLoggedIn: string | null;
+  // user: string | null;
+  // client_id: string;
+  // redirect_uri: string;
+  // client_secret: string;
+  // proxy_url: string;
 };
+
 
 export type Action = {
   type: string;
-  payload?: {};
+  payload: {} | any;
 };
 
 export type AppContextType = {

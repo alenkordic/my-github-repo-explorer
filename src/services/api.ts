@@ -13,6 +13,7 @@ interface AxiosResponseExtended extends AxiosResponse {
   duration?: number;
 }
 
+
 const api = axios.create({
   baseURL: "https://api.github.com/",
 });
@@ -61,8 +62,13 @@ export const getRepositories = (
     )}&per_page=${rowsPerPage}&page=${page + 1}`;
   }
 
-  return api.get(`/search/repositories?${queryString}`).then((res: AxiosResponseExtended) => {
-    console.log("res.headers['request-duration']", res.duration);
+  const config = {
+    headers: {
+      // 'Test-Header': 'test-value333'
+    }
+  }
+
+  return api.get(`/search/repositories?${queryString}`, config).then((res: AxiosResponseExtended) => {
     return {
       ...res.data,
       items: mapResponseItemToTableData(res.data.items),
@@ -84,3 +90,26 @@ export const getRepository = (ownew: any, name: any) => {
       };
     });
 };
+
+
+
+export const auth = ()=> {
+
+  const corsPrefix = "https://cors-anywhere.herokuapp.com/"
+  const authUrl = `${corsPrefix}https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}`;
+  const url ="/repositories"
+  const config = {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json, application/x-www-form-urlencoded',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+    }
+  }
+
+  return axios.get(authUrl).then((res:any)=>{
+    console.log("res axios", res)
+    return res
+  });
+
+}
