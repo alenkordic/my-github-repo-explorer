@@ -7,60 +7,53 @@ import SearchView from "./Search.view";
 import { getRepositories } from "./../../services/api";
 import { debounce } from "../../utils/utils";
 
-
 const SearchContainer = () => {
   const [searchString, setSearchString] = useState("");
-  const [isSearching, setIsSearching] = useState(true);
-  const [inputTouched, setInputTouched]= useState(false)
-  const [page, setPage] = useState(0)
+  const [searchStringToSend, setSearchStringToSend] = useState("");
+  const [inputTouched, setInputTouched] = useState(false);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  
-  const { isLoading, data: repositories, isFetching } = useQuery({
-    queryKey: ['repositories', page,rowsPerPage, searchString],
-    queryFn: ()=> getRepositories(page, rowsPerPage, searchString),
-    enabled: isSearching,
-    keepPreviousData : true
-  })
+  const {
+    isLoading,
+    data: repositories,
+    isFetching,
+  } = useQuery(
+    ["repositories", searchStringToSend],
+    () => getRepositories(searchStringToSend),
+    {
+      staleTime: 10000
+    }
+  );
 
-
-  // console.log("event.target.value",rowsPerPage)
-  // console.log("page",page)
-  
-  
   const onInputChangeHandler = (string: string) => {
-    setSearchString(string);
-    setInputTouched(true)
+    setSearchString(string)
   };
 
-  // useEffect(() => {
-  //   const handler = setTimeout(() => {
-  //     setIsSearching(true)
-  //   }, 500);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchStringToSend(searchString);
+    }, 1500);
 
-  //   return () => {
-  //     clearTimeout(handler);
-  //     setIsSearching(false)
-  //   };
-  // }, [searchString]);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchString]);
 
-  // if (isFetching) return <h1>Is FETCHING</h1>
-  // if (isLoading) return <h1>Is isLoading</h1>
+  // if (isFetching) return <h1>Is FETCHING</h1>;
+  // if (isLoading) return <h1>Is isLoading</h1>;
 
   return (
-    <div>
-      SearchContainer
-      <SearchView
-        onInputChange={onInputChangeHandler}
-        searchInputValue={searchString}
-        isDataLoading={isLoading}
-        repositories={repositories}
-        setPage={setPage}
-        setRowsPerPage={setRowsPerPage}
-        rowsPerPage={rowsPerPage}
-        page={page}
-      />
-    </div>
+    <SearchView
+      onInputChange={onInputChangeHandler}
+      searchInputValue={searchString}
+      isDataLoading={isLoading}
+      repositories={repositories}
+      setPage={setPage}
+      setRowsPerPage={setRowsPerPage}
+      rowsPerPage={rowsPerPage}
+      page={page}
+    />
   );
 };
 

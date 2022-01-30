@@ -1,4 +1,5 @@
 import React from "react";
+import Box from '@mui/material/Box';
 
 import { SearchInputField, Table } from "./../../components";
 
@@ -26,8 +27,10 @@ const SearchView = ({
   page,
 }: SearchViewProps) => {
   return (
-    <div>
+    <>
+    <Box mb={5}>
       <SearchInputField onChange={onInputChange} value={searchInputValue} />
+    </Box>
       <Table
         repositories={repositories}
         isDataLoading={isDataLoading}
@@ -36,7 +39,7 @@ const SearchView = ({
         rowsPerPage={rowsPerPage}
         page={page}
       />
-    </div>
+    </>
   );
 };
 

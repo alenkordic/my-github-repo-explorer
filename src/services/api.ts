@@ -1,25 +1,25 @@
 import axios from "axios";
-import {mapResponseItemToTableData} from "./../utils/utils"
+import { mapResponseItemToTableData } from "./../utils/utils";
 
 const api = axios.create({
-    baseURL: "https://api.github.com/"
-})
+  baseURL: "https://api.github.com/",
+});
 
-export const getRepositories = (page: number, rowsPerPage: number, searchString:string) => {
-  // return api.get("/search/repositories?q=my-github-repo-explorer&per_page=20&page=1").then(res => res.data)
+export const getRepositories = (searchString: string) => {
+  let queryString = "";
+  // const queryString = 'q=' + encodeURIComponent('react-complete-guide-code in:name');
+  if (searchString.trim().length === 0) {
+    queryString = `q=per_page=${10}&page=${1}`;
+  } else {
+    queryString = `q=${encodeURIComponent(
+      `${searchString.trim()} in:name`
+    )}&per_page=${10}&page=${1}`;
+  }
 
-
-  const queryString = 'q=' + encodeURIComponent('react-complete-guide-code in:name');
-  // const queryString = 'q=' + encodeURIComponent(`${searchString} in:name`);
-
-  //  return api.get(`/search/repositories?${queryString}&per_page=20&page=1`).then(res => res.data)
-
-   return api.get(`/search/repositories?${queryString}&per_page=${rowsPerPage}&page=${page+1}`).then(res => {
-     return {
-       ...res.data,
-       items: mapResponseItemToTableData(res.data.items)
-     }
-   } )
-
-
+  return api.get(`/search/repositories?${queryString}`).then((res) => {
+    return {
+      ...res.data,
+      items: mapResponseItemToTableData(res.data.items),
+    };
+  });
 };

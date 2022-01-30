@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 
+import TableRowItem from "./TableRowItem/TableRowItem"
+
 import {
   Table as MUITable,
   TableHead,
@@ -60,19 +62,13 @@ const Table = ({
           <TableBody>
             {repositories.items.map((repository) => {
               return (
-                <TableRow
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
-                  key={repository.id}
-                >
-                  <TableCell>{repository.name}</TableCell>
-                </TableRow>
-              );
+                <TableRowItem key={repository.id} {...repository}/> )
             })}
           </TableBody>
         </MUITable>
       </TableContainer>
+
+
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
