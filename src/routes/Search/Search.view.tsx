@@ -29,7 +29,7 @@ const SearchView = ({
   responseTime
 }: SearchViewProps) => {
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" maxWidth={560} m="0 auto" px={3}>
+    <Box display="flex" flexDirection="column" alignItems="center" maxWidth={560} m="0 auto" px={3} mt={16}>
     <Box mb={5} width="100%">
       <SearchInputField onChange={onInputChange} value={searchInputValue} />
     </Box>

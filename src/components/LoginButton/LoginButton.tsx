@@ -1,92 +1,155 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
-//@ts-nocheck
-
-import { useRepoExplorerContext } from "./../../store";
 import { ACTION_TYPES } from "./../../constants/actionTypes";
+import { useRepoExplorerContext } from "./../../store";
+
+import { MenuItem, Typography, Button } from "@mui/material";
 
 const LoginButton = () => {
-  const [data, setData] = useState({ errorMessage: "", isLoading: false });
   const { state, dispatch } = useRepoExplorerContext();
-
-  console.log("state", state);
-
   const { client_id, redirect_uri } = state;
+  const [searchParams] = useSearchParams();
+  const code = searchParams.get("code");
 
   useEffect(() => {
     // After requesting Github access, Github redirects back to your app with a code parameter
-    const url = window.location.href;
-    const hasCode = url.includes("?code=");
-
-    // If Github API returns the code parameter
-    if (hasCode) {
-      const newUrl = url.split("?code=");
-      //@ts-ignore
-      window.history.pushState({}, null, newUrl[0]);
-      setData({ ...data, isLoading: true });
-
-      const requestData = {
-        code: newUrl[1],
-      };
-
+    if (code) {
+      const requestData = { code };
       const proxy_url = state.proxy_url;
-
       // Use code parameter and other parameters to make POST request to proxy_server
-
       fetch(proxy_url, {
         method: "POST",
         body: JSON.stringify(requestData),
       })
-        .then((response) => response.json())
-        .then((data) => {
+        .then((response) => {
+          return response.json();
+        })
+        .then((res) => {
+          // access_token res
+          localStorage.setItem("access_token", res);
           dispatch({
             type: ACTION_TYPES.LOGIN,
-            payload: { user: data, isLoggedIn: true },
           });
+          return res;
         })
         .catch((error) => {
-          setData({
-            isLoading: false,
-            errorMessage: "Sorry! Login failed",
-          });
+          console.log("errrrorrr", error);
         });
     }
-  }, [state, dispatch, data]);
+  }, [state, dispatch, code]);
 
   const handleLogout = () => {
+    localStorage.removeItem("access_token");
     dispatch({
       type: ACTION_TYPES.LOGOUT,
-      payload: { isLoggedIn: false, user: null },
     });
   };
-
-  if (state.isLoggedIn) {
-    alert("LOGEN IN");
-  }
 
   return (
     <div>
       {state.isLoggedIn && (
-        <a
-          onClick={() => handleLogout()}
-        >
-          <span>Logout with GitHub</span>
-        </a>
+        <MenuItem onClick={handleLogout}>
+          <Typography textAlign="center">Logout</Typography>
+        </MenuItem>
       )}
 
       {!state.isLoggedIn && (
-        <a
-          href={`https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}&redirect_uri=${redirect_uri}`}
-          onClick={() => {
-            setData({ ...data, errorMessage: "" });
-          }}
-        >
-          <span>Login with GitHub</span>
-        </a>
+        <Button sx={{ my: 2, color: "white", display: "block" }}>
+          <a  href={`https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}&redirect_uri=${redirect_uri}`} style={{textDecoration: "none", color:"inherit"}}>
+            <span>Login with GitHub</span>
+          </a>
+        </Button>
       )}
     </div>
   );
 };
 
 export default LoginButton;
+
+// useEffect(() => {
+//   // After requesting Github access, Github redirects back to your app with a code parameter
+//   const url = window.location.href;
+//   const hasCode = url.includes("?code=");
+
+//   // If Github API returns the code parameter
+//   if (hasCode) {
+//     const newUrl = url.split("?code=");
+//     //@ts-ignore
+//     window.history.pushState({}, null, newUrl[0]);
+//     setData({ ...data, isLoading: true });
+
+//     const requestData = {
+//       code: newUrl[1],
+//     };
+
+//     const proxy_url = state.proxy_url;
+
+//     // Use code parameter and other parameters to make POST request to proxy_server
+
+//     fetch(proxy_url, {
+//       method: "POST",
+//       body: JSON.stringify(requestData),
+//     })
+//       .then((response) => {
+//           // console.log("responseeeeeeee",response)
+//           return response.json()})
+//       .then((data) => {
+//         console.log("dataaaaaaaaaaaaa",data)
+//         dispatch({
+//           type: ACTION_TYPES.LOGIN,
+//           payload: { user: data, isLoggedIn: true },
+//         });
+//       })
+//       .catch((error) => {
+//         setData({
+//           isLoading: false,
+//           errorMessage: "Sorry! Login failed",
+//         });
+//       });
+//   }
+// }, [state, dispatch, data]);
+
+// WORKS
+// useEffect(() => {
+//   // After requesting Github access, Github redirects back to your app with a code parameter
+//   const url = window.location.href;
+//   const hasCode = url.includes("?code=");
+
+//   // If Github API returns the code parameter
+//   if (hasCode) {
+//     const newUrl = url.split("?code=");
+//     //@ts-ignore
+//     window.history.pushState({}, null, newUrl[0]);
+//     setData({ ...data, isLoading: true });
+
+//     const requestData = {
+//       code: newUrl[1],
+//     };
+
+//     const proxy_url = state.proxy_url;
+
+//     // Use code parameter and other parameters to make POST request to proxy_server
+//     fetch(proxy_url, {
+//       method: "POST",
+//       body: JSON.stringify(requestData),
+//     })
+//       .then((response) => {
+//         return response.json()
+//       })
+//       .then((res) => {
+//         // access_token res
+//         localStorage.setItem('access_token', res)
+//         return res;
+//       })
+//       .catch((error) => {
+//         console.log("errrrorrr",error)
+//         // setData({
+//         //   isLoading: false,
+//         //   errorMessage: "Sorry! Login failed",
+//         // });
+//       });
+
+//   }
+
+// }, [state, dispatch, data]);

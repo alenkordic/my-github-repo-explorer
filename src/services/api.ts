@@ -4,7 +4,6 @@ import {
   mapResponseItemToDetailsData,
 } from "./../utils/utils";
 
-
 interface AxiosRequestConfigExtended extends AxiosRequestConfig {
   metadata?: any;
 }
@@ -13,11 +12,9 @@ interface AxiosResponseExtended extends AxiosResponse {
   duration?: number;
 }
 
-
 const api = axios.create({
   baseURL: "https://api.github.com/",
 });
-
 
 // Request interceptor will set startTime
 api.interceptors.request.use(
@@ -46,7 +43,6 @@ api.interceptors.response.use(
   }
 );
 
-
 export const getRepositories = (
   searchString: string,
   page: number,
@@ -65,16 +61,18 @@ export const getRepositories = (
   const config = {
     headers: {
       // 'Test-Header': 'test-value333'
-    }
-  }
+    },
+  };
 
-  return api.get(`/search/repositories?${queryString}`, config).then((res: AxiosResponseExtended) => {
-    return {
-      ...res.data,
-      items: mapResponseItemToTableData(res.data.items),
-      duration: res.duration
-    };
-  });
+  return api
+    .get(`/search/repositories?${queryString}`, config)
+    .then((res: AxiosResponseExtended) => {
+      return {
+        ...res.data,
+        items: mapResponseItemToTableData(res.data.items),
+        duration: res.duration,
+      };
+    });
 };
 
 export const getRepository = (ownew: any, name: any) => {
@@ -86,30 +84,20 @@ export const getRepository = (ownew: any, name: any) => {
     .then((res: AxiosResponseExtended) => {
       return {
         ...mapResponseItemToDetailsData(res.data),
-        duration: res.duration
+        duration: res.duration,
       };
     });
 };
 
+export const getUser = (accessToken: string | null) => {
 
-
-export const auth = ()=> {
-
-  const corsPrefix = "https://cors-anywhere.herokuapp.com/"
-  const authUrl = `${corsPrefix}https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}`;
-  const url ="/repositories"
   const config = {
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json, application/x-www-form-urlencoded',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+      'Authorization': `token ${accessToken}`,
     }
   }
+  return api.get(`/user`, config).then((res:any)=> {
+    return res.data
+  }) 
+};
 
-  return axios.get(authUrl).then((res:any)=>{
-    console.log("res axios", res)
-    return res
-  });
-
-}
