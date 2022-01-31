@@ -1,14 +1,28 @@
 import React from "react";
 import { Routes as ReactRoutes, Link, Navigate, Route } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from '@mui/material/CssBaseline';
 
 import Search from "./Search";
 import Details from "./Details";
 import { NavigationBar } from "../components";
+import {useRepoExplorerContext} from "./../store"
 
 const Routes = () => {
+
+  const { state } = useRepoExplorerContext();
+
+  const {darkMode} = state
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: darkMode ? "dark" : "light",
+    },
+  });
  
   return (
-    <div>
+    <ThemeProvider theme={darkTheme} >
+      <CssBaseline />
       <NavigationBar />
       <ReactRoutes>
         <Route path="/" element={<Navigate to="/repositories" />} />
@@ -20,7 +34,7 @@ const Routes = () => {
         <Route path="*" element={<Navigate to="/repositories" />} />
 
       </ReactRoutes>
-    </div>
+    </ThemeProvider>
   );
 };
 

@@ -7,7 +7,7 @@ import { RepoExplorerContextProvider } from "./store";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,20 +17,14 @@ const queryClient = new QueryClient({
   },
 });
 
-const darkTheme = createTheme({
-  palette: {
-    mode: "light",
-  },
-});
+
 
 ReactDOM.render(
   <RepoExplorerContextProvider>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={darkTheme}>
+    <QueryClientProvider client={queryClient}>  
         <BrowserRouter>
           <Routes />
         </BrowserRouter>
-      </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </RepoExplorerContextProvider>,
