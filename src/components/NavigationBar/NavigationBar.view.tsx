@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-import { LoginButton,SwitchMode } from "./../../components";
+import { LoginButton, SwitchMode } from "./../../components";
 
 interface User {
   avatar_url: string;
@@ -44,9 +44,9 @@ const NavigationBarView = ({ isLoggedIn, user }: NavigationBArViewProps) => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <Box>
-                <SwitchMode />
-                </Box>
+          <Box>
+            <SwitchMode />
+          </Box>
           <Typography
             variant="h6"
             noWrap
@@ -58,7 +58,7 @@ const NavigationBarView = ({ isLoggedIn, user }: NavigationBArViewProps) => {
           <Box sx={{ flexGrow: 1, display: { xs: "flex" } }}>
             {!isLoggedIn && <LoginButton />}
           </Box>
-        
+
           <Box mr={2}>
             <Typography>{user?.login ? user.login : "Guest"}</Typography>{" "}
           </Box>
@@ -89,14 +89,11 @@ const NavigationBarView = ({ isLoggedIn, user }: NavigationBArViewProps) => {
                 >
                   <LoginButton />
                 </Menu>
-             
               </>
             )}
-          
           </Box>
         </Toolbar>
       </Container>
-     
     </AppBar>
   );
 };

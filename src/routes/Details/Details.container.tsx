@@ -2,6 +2,10 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from "react-router-dom";
 
+import {DetailsViewProps} from "./../../types"
+
+import DetailsView from './Details.view';
+
 import { getRepository } from "./../../services/api"
 
 const DetailsContainer = () => {
@@ -18,10 +22,10 @@ const DetailsContainer = () => {
   if (isLoading) return <h1>Loadiiing...</h1>
 
   if (status === "success") {
-    console.log('DATA', data)
+    console.log('DATA', {...data})
   }
 
-  return <div>DetailsContainer <h6>{owner}</h6><h3>{repoName}</h3></div>;
+  return <DetailsView {...data} />;
 };
 
 export default DetailsContainer;

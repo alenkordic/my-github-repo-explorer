@@ -2,9 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 
 import { useQuery } from "react-query";
 
-
-
-
 import SearchView from "./Search.view";
 
 import { getRepositories } from "./../../services/api";
@@ -12,7 +9,6 @@ import { getRepositories } from "./../../services/api";
 const SearchContainer = () => {
   const [searchString, setSearchString] = useState("");
   const [searchStringToSend, setSearchStringToSend] = useState("");
-  const [inputTouched, setInputTouched] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
@@ -24,9 +20,6 @@ const SearchContainer = () => {
     }
   );
 
- 
-
-
   const onInputChangeHandler = (string: string) => {
     setSearchString(string);
   };
@@ -34,15 +27,12 @@ const SearchContainer = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setSearchStringToSend(searchString);
-    }, 1500);
+    }, 1000);
 
     return () => {
       clearTimeout(handler);
     };
   }, [searchString]);
-
-  // if (isFetching) return <h1>Is FETCHING</h1>;
-  // if (isLoading) return <h1>Is isLoading</h1>;
 
   return (
     <SearchView

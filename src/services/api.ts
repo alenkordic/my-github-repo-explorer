@@ -43,7 +43,7 @@ api.interceptors.response.use(
   }
 );
 
-export const getRepositories = (
+export const getRepositories = async (
   searchString: string,
   page: number,
   rowsPerPage: number
@@ -58,12 +58,16 @@ export const getRepositories = (
     )}&per_page=${rowsPerPage}&page=${page + 1}`;
   }
 
-  const config = {
-    headers: {
-      // 'Test-Header': 'test-value333'
-    },
-  };
+  const accessToken = localStorage.getItem("access_token");
 
+  let headers = {};
+  if (accessToken) {
+    headers = { Authorization: `token ${accessToken}` };
+  }
+
+  const config = {
+    headers,
+  };
   return api
     .get(`/search/repositories?${queryString}`, config)
     .then((res: AxiosResponseExtended) => {
@@ -75,10 +79,8 @@ export const getRepositories = (
     });
 };
 
-export const getRepository = (ownew: any, name: any) => {
-  // const url = `/repos/octocat/hello-world`;
+export const getRepository = async (ownew: any, name: any) => {
   const url = `/repos/${ownew}/${name}`;
-
   return api
     .get(url, { headers: { Accept: "application/vnd.github.v3+json" } })
     .then((res: AxiosResponseExtended) => {
@@ -89,15 +91,13 @@ export const getRepository = (ownew: any, name: any) => {
     });
 };
 
-export const getUser = (accessToken: string | null) => {
-
+export const getUser = async (accessToken: string | null) => {
   const config = {
     headers: {
-      'Authorization': `token ${accessToken}`,
-    }
-  }
-  return api.get(`/user`, config).then((res:any)=> {
-    return res.data
-  }) 
+      Authorization: `token ${accessToken}`,
+    },
+  };
+  return api.get(`/user`, config).then((res: any) => {
+    return res.data;
+  });
 };
-

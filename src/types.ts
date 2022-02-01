@@ -56,3 +56,22 @@ export type RepositoriesType = {
   items: repositoryItemsType[];
   total_count: number;
 }
+
+
+export type DetailsViewProps = {
+  id: number;
+  name: string;
+  owner: string;
+  ownerType: string;
+  ownersUrl: string;
+  avatar: string;
+  description: string;
+  url: string;
+  createdAt: Date;
+  updatedAt: Date;
+  watchers: number;
+  forks: number;
+  visibility: string;
+  issues: number;
+  duration: number;
+}
