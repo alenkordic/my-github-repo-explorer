@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Routes from "./routes";
 
-import { RepoExplorerContextProvider } from "./store";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
 
+import Routes from "./routes";
+import { AuthProvider } from "./contexts/auth.context";
+import { ThemeProvider } from "./contexts/theme.context";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,16 +18,16 @@ const queryClient = new QueryClient({
   },
 });
 
-
-
 ReactDOM.render(
-  <RepoExplorerContextProvider>
-    <QueryClientProvider client={queryClient}>  
+  <ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
         <BrowserRouter>
           <Routes />
         </BrowserRouter>
+      </AuthProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
-  </RepoExplorerContextProvider>,
+  </ThemeProvider>,
   document.getElementById("root")
 );

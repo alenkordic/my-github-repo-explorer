@@ -6,13 +6,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Search from "./Search";
 import Details from "./Details";
 import { NavigationBar } from "../components";
-import {useRepoExplorerContext} from "./../store"
+
+import {useThemeContext} from "./../contexts/theme.context"
+
 
 const Routes = () => {
 
-  const { state } = useRepoExplorerContext();
-
-  const {darkMode} = state
+  const {darkMode} = useThemeContext()
 
   const darkTheme = createTheme({
     palette: {

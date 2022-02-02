@@ -1,45 +1,28 @@
-import React, { useEffect, useCallback } from "react";
-
 import { useQuery } from "react-query";
 
-import NavigationBarView from "./NavigationBar.view"
-import { useRepoExplorerContext } from "./../../store";
+import NavigationBarView from "./NavigationBar.view";
 import { getUser } from "./../../services/api";
-import { ACTION_TYPES } from "../../constants/actionTypes";
 
+import { useAuthContext } from "./../../contexts/auth.context";
 
 const NavigationBarContainer = () => {
+  const { isAuthenticated } = useAuthContext();
 
-    const { state, dispatch } = useRepoExplorerContext();
-
-  const { isLoggedIn } = state;
-
-  // const accessToken = localStorage.getItem("access_token");
-  // useEffect(() => {
-  //   if (accessToken) {
-  //     dispatch({
-  //       type: ACTION_TYPES.LOGIN,
-  //     });
-  //   }
-  // }, [ dispatch]);
-
-
-  const {
-    data: user,
-    status,
-    isLoading,
-    error,
-    isSuccess
-  } = useQuery("getUser", () => getUser(), {
-    enabled: isLoggedIn,
+  const { data: user, isSuccess } = useQuery("getUser", () => getUser(), {
+    enabled: isAuthenticated,
   });
 
   if (isSuccess) {
     console.log("yere", user);
   }
 
+  console.log("isAuthenticated", isAuthenticated);
 
-  return <div><NavigationBarView isLoggedIn={isLoggedIn} user={user}/></div>;
+  return (
+    <div>
+      <NavigationBarView isAuthenticated={isAuthenticated} user={user} />
+    </div>
+  );
 };
 
 export default NavigationBarContainer;

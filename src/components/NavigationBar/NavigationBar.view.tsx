@@ -20,11 +20,11 @@ interface User {
   login: string;
 }
 interface NavigationBArViewProps {
-  isLoggedIn: boolean;
+  isAuthenticated: boolean;
   user: User;
 }
 
-const NavigationBarView = ({ isLoggedIn, user }: NavigationBArViewProps) => {
+const NavigationBarView = ({ isAuthenticated, user }: NavigationBArViewProps) => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -56,7 +56,7 @@ const NavigationBarView = ({ isLoggedIn, user }: NavigationBArViewProps) => {
             <GitHubIcon fontSize="large" />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex" } }}>
-            {!isLoggedIn && <LoginButton />}
+            {!isAuthenticated && <LoginButton />}
           </Box>
 
           <Box mr={2}>
@@ -64,7 +64,7 @@ const NavigationBarView = ({ isLoggedIn, user }: NavigationBArViewProps) => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {isLoggedIn && (
+            {isAuthenticated && (
               <>
                 <Tooltip title="Profile">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

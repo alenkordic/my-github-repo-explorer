@@ -43,3 +43,13 @@ export const displaySecondsFromMilis = (timestampInMilis:number):number => {
   return  parseFloat(timeInSeconds)
 }
 
+
+export const getLocalAccessToken = ()=>{
+  const accessToken = window.localStorage.getItem("accessToken");
+  return accessToken;
+}
+
+export const getLocalRefreshToken = ()=> {
+  const refreshToken = window.localStorage.getItem("refreshToken");
+  return refreshToken;
+}

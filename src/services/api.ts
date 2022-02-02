@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import {
   mapResponseItemToTableData,
   mapResponseItemToDetailsData,
+  getLocalAccessToken,
+  getLocalRefreshToken
 } from "./../utils/utils";
 
 interface AxiosRequestConfigExtended extends AxiosRequestConfig {
@@ -12,20 +14,23 @@ interface AxiosResponseExtended extends AxiosResponse {
   duration?: number;
 }
 
+
+
+
+
+
 const api = axios.create({
-  baseURL: "https://api.github.com/"
+  baseURL: "https://api.github.com/",
 });
 
 // Request interceptor will set startTime
 api.interceptors.request.use(
   function (config: AxiosRequestConfigExtended): any {
-
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken = getLocalAccessToken();
 
     if (accessToken) {
       config.headers = { Authorization: `token ${accessToken}` };
     }
-
     config.metadata = { startTime: new Date() };
     return config;
   },
@@ -46,6 +51,13 @@ api.interceptors.response.use(
     error.config.metadata.endTime = new Date();
     error.duration =
       error.config.metadata.endTime - error.config.metadata.startTime;
+      if (error.response.status === 401) {
+        // Do something, call refreshToken() request for example;
+        // return a request
+        console.log("Do something, call refreshToken() request for example", error.response.status)
+        // return axios_instance(config);
+      }
+
     return Promise.reject(error);
   }
 );
@@ -54,6 +66,17 @@ api.interceptors.response.use(
 
 
 
+
+
+
+
+
+
+
+
+
+
+// GETTERS
 export const getRepositories = async (
   searchString: string,
   page: number,
@@ -67,9 +90,7 @@ export const getRepositories = async (
     queryString = `q=${encodeURIComponent(
       `${searchString.trim()} in:name`
     )}&per_page=${rowsPerPage}&page=${page + 1}`;
-    
   }
-
 
   return api
     .get(`/search/repositories?${queryString}`)
@@ -82,17 +103,14 @@ export const getRepositories = async (
     });
 };
 
-
 export const getRepository = async (ownew: any, name: any) => {
   const url = `/repos/${ownew}/${name}`;
-  return api
-    .get(url)
-    .then((res: AxiosResponseExtended) => {
-      return {
-        ...mapResponseItemToDetailsData(res.data),
-        duration: res.duration,
-      };
-    });
+  return api.get(url).then((res: AxiosResponseExtended) => {
+    return {
+      ...mapResponseItemToDetailsData(res.data),
+      duration: res.duration,
+    };
+  });
 };
 
 export const getUser = async () => {
@@ -101,11 +119,8 @@ export const getUser = async () => {
   });
 };
 
-
 // export const refetchToken = ()=> {
 //   api.get...
 // }
-
-
 
 //logiku prebaciti ovde za fetch tokena

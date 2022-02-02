@@ -3,8 +3,8 @@ import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch, { SwitchProps } from "@mui/material/Switch";
-import { useRepoExplorerContext } from "./../../store";
-import { ACTION_TYPES } from "../../constants/actionTypes";
+
+import { useThemeContext } from "./../../contexts/theme.context";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -54,15 +54,11 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function SwitchMode() {
-  const { state, dispatch } = useRepoExplorerContext();
+  const { darkMode, toggleDarkMode } = useThemeContext();
 
   const toggleThemeModeHandler = () => {
-    dispatch({
-      type: ACTION_TYPES.TOGGLE_THEME_MODE,
-    });
+    toggleDarkMode();
   };
-
-  const { darkMode } = state;
 
   return (
     <FormGroup>
@@ -71,8 +67,9 @@ export default function SwitchMode() {
         label={`${darkMode ? "Dark" : "Light"} mode  `}
         onChange={toggleThemeModeHandler}
         labelPlacement="bottom"
-        sx={{fontSize: "8px"}}
-        componentsProps={{typography: {fontSize: 10}}}
+        sx={{ fontSize: "8px" }}
+        componentsProps={{ typography: { fontSize: 10 } }}
+        checked={darkMode}
       />
     </FormGroup>
   );
