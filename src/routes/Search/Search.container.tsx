@@ -8,31 +8,24 @@ import { getRepositories } from "./../../services/api";
 
 const SearchContainer = () => {
   const [searchString, setSearchString] = useState("");
-  const [searchStringToSend, setSearchStringToSend] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
-  const { isLoading, data: repositories } = useQuery(
-    ["repositories", searchStringToSend, page, rowsPerPage],
-    () => getRepositories(searchStringToSend, page, rowsPerPage),
+  const {
+    isLoading,
+    data: repositories = { items: [], total_count: 0 },
+  } = useQuery(
+    ["repositories", searchString, page, rowsPerPage],
+    () => getRepositories(searchString, page, rowsPerPage),
     {
       staleTime: 10000,
+      enabled: !!searchString,
     }
   );
 
   const onInputChangeHandler = (string: string) => {
     setSearchString(string);
   };
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setSearchStringToSend(searchString);
-    }, 1000);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [searchString]);
 
   return (
     <SearchView

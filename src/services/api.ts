@@ -13,12 +13,19 @@ interface AxiosResponseExtended extends AxiosResponse {
 }
 
 const api = axios.create({
-  baseURL: "https://api.github.com/",
+  baseURL: "https://api.github.com/"
 });
 
 // Request interceptor will set startTime
 api.interceptors.request.use(
   function (config: AxiosRequestConfigExtended): any {
+
+    const accessToken = localStorage.getItem("access_token");
+
+    if (accessToken) {
+      config.headers = { Authorization: `token ${accessToken}` };
+    }
+
     config.metadata = { startTime: new Date() };
     return config;
   },
@@ -43,6 +50,10 @@ api.interceptors.response.use(
   }
 );
 
+
+
+
+
 export const getRepositories = async (
   searchString: string,
   page: number,
@@ -56,20 +67,12 @@ export const getRepositories = async (
     queryString = `q=${encodeURIComponent(
       `${searchString.trim()} in:name`
     )}&per_page=${rowsPerPage}&page=${page + 1}`;
+    
   }
 
-  const accessToken = localStorage.getItem("access_token");
 
-  let headers = {};
-  if (accessToken) {
-    headers = { Authorization: `token ${accessToken}` };
-  }
-
-  const config = {
-    headers,
-  };
   return api
-    .get(`/search/repositories?${queryString}`, config)
+    .get(`/search/repositories?${queryString}`)
     .then((res: AxiosResponseExtended) => {
       return {
         ...res.data,
@@ -79,10 +82,11 @@ export const getRepositories = async (
     });
 };
 
+
 export const getRepository = async (ownew: any, name: any) => {
   const url = `/repos/${ownew}/${name}`;
   return api
-    .get(url, { headers: { Accept: "application/vnd.github.v3+json" } })
+    .get(url)
     .then((res: AxiosResponseExtended) => {
       return {
         ...mapResponseItemToDetailsData(res.data),
@@ -91,13 +95,17 @@ export const getRepository = async (ownew: any, name: any) => {
     });
 };
 
-export const getUser = async (accessToken: string | null) => {
-  const config = {
-    headers: {
-      Authorization: `token ${accessToken}`,
-    },
-  };
-  return api.get(`/user`, config).then((res: any) => {
+export const getUser = async () => {
+  return api.get(`/user`).then((res: any) => {
     return res.data;
   });
 };
+
+
+// export const refetchToken = ()=> {
+//   api.get...
+// }
+
+
+
+//logiku prebaciti ovde za fetch tokena

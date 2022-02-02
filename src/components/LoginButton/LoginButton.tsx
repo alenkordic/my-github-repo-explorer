@@ -2,13 +2,17 @@ import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { ACTION_TYPES } from "./../../constants/actionTypes";
+import {
+  client_id,
+  redirect_uri,
+  proxy_url,
+} from "./../../constants/enviroments";
 import { useRepoExplorerContext } from "./../../store";
 
 import { MenuItem, Typography, Button } from "@mui/material";
 
 const LoginButton = () => {
   const { state, dispatch } = useRepoExplorerContext();
-  const { client_id, redirect_uri } = state;
   const [searchParams] = useSearchParams();
   const code = searchParams.get("code");
 
@@ -16,7 +20,6 @@ const LoginButton = () => {
     // After requesting Github access, Github redirects back to your app with a code parameter
     if (code) {
       const requestData = { code };
-      const proxy_url = state.proxy_url;
       // Use code parameter and other parameters to make POST request to proxy_server
       fetch(proxy_url, {
         method: "POST",
@@ -27,17 +30,17 @@ const LoginButton = () => {
         })
         .then((res) => {
           // access_token res
-          localStorage.setItem("access_token", res);
+          localStorage.setItem("access_token", res.access_token);
+          localStorage.setItem("refresh_token", res.refresh_token);
           dispatch({
             type: ACTION_TYPES.LOGIN,
           });
-          return res;
         })
         .catch((error) => {
           console.log("errrrorrr", error);
         });
     }
-  }, [state, dispatch, code]);
+  }, [dispatch, code]);
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");
@@ -56,7 +59,10 @@ const LoginButton = () => {
 
       {!state.isLoggedIn && (
         <Button sx={{ my: 2, color: "white", display: "block" }}>
-          <a  href={`https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}&redirect_uri=${redirect_uri}`} style={{textDecoration: "none", color:"inherit"}}>
+          <a
+            href={`https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}&redirect_uri=${redirect_uri}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
             <span>Login with GitHub</span>
           </a>
         </Button>

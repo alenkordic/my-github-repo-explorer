@@ -36,9 +36,11 @@ app.post("/authenticate", (req, res) => {
     .then((paramsString) => {
       let params = new URLSearchParams(paramsString);
       const access_token = params.get("access_token");
+      const refresh_token = params.get("refresh_token");
 
       // Request to return data of a user that has been authenticated
-      return res.status(200).json(access_token);
+      return res.status(200).json({access_token, refresh_token });
+      // return res.status(200).json(access_token).json(refresh_token);
     })
     .catch((error) => {
       return res.status(400).json(error);

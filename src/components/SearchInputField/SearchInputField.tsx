@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { TextField } from "@mui/material";
 
@@ -11,9 +11,26 @@ interface SearchInputFieldProps {
 
 const SearchInputField = ({ onChange, value }: SearchInputFieldProps) => {
 
+  const [searchString, setSearchString] = useState("");
+  
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (searchString !== value  ) {
+        onChange(searchString);
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+    //eslint-disable-next-line
+  }, [searchString]);
+
+
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    onChange(e.target.value);
+    setSearchString(e.target.value);
   };
+
 
   return (
     <TextField
@@ -21,7 +38,7 @@ const SearchInputField = ({ onChange, value }: SearchInputFieldProps) => {
       label="Search"
       placeholder="Github repository name"
       variant="outlined"
-      value={value}
+      value={searchString}
       onChange={onChangeHandler}
     />
   );

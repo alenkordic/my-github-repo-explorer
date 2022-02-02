@@ -2,10 +2,6 @@ export type StateType = {
   darkMode: boolean;
   isLoggedIn: any;
   user: any;
-  client_id: any;
-  redirect_uri: any;
-  client_secret: any;
-  proxy_url: any;
   // darkMode: boolean;
   // isLoggedIn: string | null;
   // user: string | null;

@@ -1,5 +1,5 @@
 
 
-exports.client_id  = "adc403113ae123452515";
+exports.client_id  = "Iv1.a22e2f19afba852b";
 exports.redirect_uri  = "http://localhost:3000/";
-exports.client_secret  = "c9b8953dcde0aa97290074c7035826178d7c5fd9";
+exports.client_secret  = "3bb7dd28200275baa872e9ba85496226567ede79";

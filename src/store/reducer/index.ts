@@ -12,13 +12,13 @@ const repoExplorerReducer = (state: StateType, action: Action) => {
     case ACTION_TYPES.LOGIN: {
       return {
         ...state,
-        isLoggedIn: true
+        isLoggedIn: true,
       };
     }
     case ACTION_TYPES.LOGOUT: {
       return {
         ...state,
-        isLoggedIn: false
+        isLoggedIn: false,
       };
     }
 

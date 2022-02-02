@@ -15,10 +15,10 @@ export const mapResponseItemToTableData = (
   });
 };
 
+
 export const mapResponseItemToDetailsData = (
   responseItem: any
 ): repositoryItemType => {
-
     return {
       id: responseItem.id,
       name: responseItem.name,

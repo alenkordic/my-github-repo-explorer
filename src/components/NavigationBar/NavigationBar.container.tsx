@@ -14,15 +14,14 @@ const NavigationBarContainer = () => {
 
   const { isLoggedIn } = state;
 
-  const accessToken = localStorage.getItem("access_token");
-
-  useEffect(() => {
-    if (accessToken) {
-      dispatch({
-        type: ACTION_TYPES.LOGIN,
-      });
-    }
-  }, [accessToken, dispatch]);
+  // const accessToken = localStorage.getItem("access_token");
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     dispatch({
+  //       type: ACTION_TYPES.LOGIN,
+  //     });
+  //   }
+  // }, [ dispatch]);
 
 
   const {
@@ -31,8 +30,8 @@ const NavigationBarContainer = () => {
     isLoading,
     error,
     isSuccess
-  } = useQuery(["getUser", accessToken], () => getUser(accessToken), {
-    enabled: Boolean(accessToken),
+  } = useQuery("getUser", () => getUser(), {
+    enabled: isLoggedIn,
   });
 
   if (isSuccess) {
