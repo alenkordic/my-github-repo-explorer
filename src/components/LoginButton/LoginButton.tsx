@@ -44,6 +44,7 @@ const LoginButton = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
     dispatch({
       type: ACTION_TYPES.LOGOUT,
     });
