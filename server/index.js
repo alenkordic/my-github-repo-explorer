@@ -13,6 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Enabled Access-Control-Allow-Origin", "*" in the header so as to by-pass the CORS error.
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Max-Age", "86400");
   next();
 });
 

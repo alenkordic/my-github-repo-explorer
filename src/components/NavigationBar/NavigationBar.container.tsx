@@ -1,20 +1,17 @@
-import { useQuery } from "react-query";
-
+import React from "react";
 import NavigationBarView from "./NavigationBar.view";
 import { getUser } from "./../../services/api";
-
 import { useAuthContext } from "./../../contexts/auth.context";
 
+
+
+import { useQuery } from "react-query";
+
+
 const NavigationBarContainer = () => {
-  const { isAuthenticated } = useAuthContext();
-
-  const { data: user, isSuccess } = useQuery("getUser", () => getUser(), {
-    enabled: isAuthenticated,
-  });
-
-  if (isSuccess) {
-    console.log("yere", user);
-  }
+ 
+  const { isAuthenticated, } = useAuthContext();
+  const user = { avatar_url: "avatarurl", login: "alenHard" };
 
   console.log("isAuthenticated", isAuthenticated);
 

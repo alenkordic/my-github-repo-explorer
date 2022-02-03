@@ -1,9 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { resolve } from "path/posix";
 import {
   mapResponseItemToTableData,
   mapResponseItemToDetailsData,
   getLocalAccessToken,
-  getLocalRefreshToken
+  getLocalRefreshToken,
 } from "./../utils/utils";
 
 interface AxiosRequestConfigExtended extends AxiosRequestConfig {
@@ -13,11 +14,6 @@ interface AxiosResponseExtended extends AxiosResponse {
   config: AxiosRequestConfigExtended;
   duration?: number;
 }
-
-
-
-
-
 
 const api = axios.create({
   baseURL: "https://api.github.com/",
@@ -51,30 +47,58 @@ api.interceptors.response.use(
     error.config.metadata.endTime = new Date();
     error.duration =
       error.config.metadata.endTime - error.config.metadata.startTime;
-      if (error.response.status === 401) {
-        // Do something, call refreshToken() request for example;
-        // return a request
-        console.log("Do something, call refreshToken() request for example", error.response.status)
-        // return axios_instance(config);
-      }
 
-    return Promise.reject(error);
-  }
+    const originalConfig = error.config;
+
+    if (error.response) {
+      // Access Token was expired
+      if (error.response.status === 401 && !originalConfig._retry) {
+        originalConfig._retry = true;
+
+        console.log("originalConfig", originalConfig)
+        // try {
+
+        //   const rs = await refreshToken();
+
+        //   const { accessToken } = rs.data;
+        //   window.localStorage.setItem("accessToken", accessToken);
+        //   api.defaults.headers.common["x-access-token"] = accessToken;
+
+        //   return api(originalConfig);
+        // } catch (_error) {
+        //   if (_error.response && _error.response.data) {
+        //     return Promise.reject(_error.response.data);
+        //   }
+
+          return Promise.reject(error);
+        }
+      }
+    }
 );
 
+// function refreshToken() {
+//   return api.post("/auth/refreshtoken", {
+//     refreshToken: getLocalRefreshToken(),
+//   });
+// }
 
-
-
-
-
-
-
-
-
-
-
-
-
+export const getTokens = async (url: string, code: string | null) => {
+  const config = {
+    code: code,
+  };
+  return api
+    .post(url, config)
+    .then((tokens) => {
+      return {
+        accessToken: tokens.data.access_token,
+        refreshToken: tokens.data.refresh_token,
+      };
+    })
+    .catch((error) => {
+      // console.error("There was an error!", { errorMessage: error.message });
+      console.error("There was an error!", error);
+    });
+};
 
 // GETTERS
 export const getRepositories = async (
@@ -92,19 +116,19 @@ export const getRepositories = async (
     )}&per_page=${rowsPerPage}&page=${page + 1}`;
   }
 
-  return api
-    .get(`/search/repositories?${queryString}`)
-    .then((res: AxiosResponseExtended) => {
-      return {
-        ...res.data,
-        items: mapResponseItemToTableData(res.data.items),
-        duration: res.duration,
-      };
-    });
+  const url = `https://api.github.com/search/repositories?${queryString}`;
+
+  return api.get(url).then((res: AxiosResponseExtended) => {
+    return {
+      ...res.data,
+      items: mapResponseItemToTableData(res.data.items),
+      duration: res.duration,
+    };
+  });
 };
 
 export const getRepository = async (ownew: any, name: any) => {
-  const url = `/repos/${ownew}/${name}`;
+  const url = `https://api.github.com/repos/${ownew}/${name}`;
   return api.get(url).then((res: AxiosResponseExtended) => {
     return {
       ...mapResponseItemToDetailsData(res.data),
@@ -114,7 +138,7 @@ export const getRepository = async (ownew: any, name: any) => {
 };
 
 export const getUser = async () => {
-  return api.get(`/user`).then((res: any) => {
+  return api.get(`https://api.github.com/user`).then((res: any) => {
     return res.data;
   });
 };

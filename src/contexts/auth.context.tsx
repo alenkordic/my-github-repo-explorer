@@ -15,14 +15,16 @@ interface AuthProviderProps {
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [acceesToken, setAcceesToken] = useLocalStorage("accessToken", null);
-  const [refreshToken, setRefreshToken] = useLocalStorage(
+
+  const [acceessToken, setAcceessToken, removeAccessToken] = useLocalStorage("accessToken", null);
+  const [refreshToken, setRefreshToken, removeRefreshToken] = useLocalStorage(
     "refreshToken",
     null
   );
+  
 
   useEffect(() => {
-    if (acceesToken) {
+    if (acceessToken) {
       setIsAuthenticated(true)
     }
     setLoading(false);
@@ -35,15 +37,17 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   console.log("AUTTTT");
 
-  const handleLogin = (acceesToken: string, refreshToken: string) => {
-    setAcceesToken(acceesToken);
+  const handleLogin = (acceessToken: string, refreshToken: string) => {
+    setAcceessToken(acceessToken);
     setRefreshToken(refreshToken);
     setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
-    setAcceesToken(null);
+    setAcceessToken(null);
     setRefreshToken(null);
+    // removeAccessToken();
+    // removeRefreshToken();
     setIsAuthenticated(false);
   };
 

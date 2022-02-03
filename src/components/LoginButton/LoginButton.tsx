@@ -1,6 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
+
+import { MenuItem, Typography, Button } from "@mui/material";
+
 import { useSearchParams } from "react-router-dom";
+
 import { useAuthContext } from "./../../contexts/auth.context";
+import { getTokens } from "./../../services/api";
 
 
 import {
@@ -9,38 +14,27 @@ import {
   proxy_url,
 } from "./../../constants/enviroments";
 
-
-import { MenuItem, Typography, Button } from "@mui/material";
-
 const LoginButton = () => {
-  
+
+
+
+  // @ts-ignore
+  const { login, logout, isAuthenticated, error } = useAuthContext();
+
+
   const [searchParams] = useSearchParams();
   const code = searchParams.get("code");
 
-  // @ts-ignore
-  const { login, logout, isAuthenticated } = useAuthContext();
+  if (code) {
+    // let newTokens = {}
+    getTokens(proxy_url, code).then((res) => {
+      console.log("ggg0",res)
+      login(res?.accessToken, res?.refreshToken)
+    });
+  }
 
-  useEffect(() => {
-    // After requesting Github access, Github redirects back to your app with a code parameter
-    if (code) {
-      const requestData = { code };
-      // Use code parameter and other parameters to make POST request to proxy_server
-      fetch(proxy_url, {
-        method: "POST",
-        body: JSON.stringify(requestData),
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((res) => {
-          login(res.access_token, res.refresh_token);
-        })
-        .catch((error) => {
-          console.log("errrrorrr", error);
-          logout();
-        });
-    }
-  }, []);
+
+
 
   const handleLogout = () => {
     logout();
