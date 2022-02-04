@@ -1,11 +1,11 @@
 import React, { useEffect, createContext, useState, useContext } from "react";
-// import { graphQLClient } from "services/graphqlClient";
+
 import useLocalStorage from "./../hooks/useLocalStorage";
 
 const AuthContext = createContext({
   isAuthenticated: false,
   logout: () => {},
-  login: (acceesToken: string, refreshToken: string) => {},
+  login: (acceesToken: string, refreshToken: string) => {}
 });
 
 interface AuthProviderProps {
@@ -16,16 +16,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const [acceessToken, setAcceessToken, removeAccessToken] = useLocalStorage("accessToken", null);
-  const [refreshToken, setRefreshToken, removeRefreshToken] = useLocalStorage(
-    "refreshToken",
-    null
-  );
-  
+  const [acceessToken, setAcceessToken] = useLocalStorage("accessToken", null);
+  const [refreshToken, setRefreshToken] = useLocalStorage("refreshToken", null);
 
   useEffect(() => {
     if (acceessToken) {
-      setIsAuthenticated(true)
+      setIsAuthenticated(true);
     }
     setLoading(false);
     // eslint-disable-next-line
@@ -34,8 +30,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  console.log("AUTTTT");
 
   const handleLogin = (acceessToken: string, refreshToken: string) => {
     setAcceessToken(acceessToken);
@@ -46,15 +40,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const handleLogout = () => {
     setAcceessToken(null);
     setRefreshToken(null);
-    // removeAccessToken();
-    // removeRefreshToken();
     setIsAuthenticated(false);
   };
 
   const authContext = {
     isAuthenticated: isAuthenticated,
     logout: handleLogout,
-    login: handleLogin,
+    login: handleLogin
   };
 
   return (

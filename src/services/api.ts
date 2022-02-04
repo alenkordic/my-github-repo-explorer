@@ -1,11 +1,11 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { resolve } from "path/posix";
+
 import {
   mapResponseItemToTableData,
-  mapResponseItemToDetailsData,
-  getLocalAccessToken,
-  getLocalRefreshToken,
+  mapResponseItemToDetailsData
 } from "./../utils/utils";
+import StorageService from "./../services/storage";
+import { proxy_url } from "./../constants/enviroments";
 
 interface AxiosRequestConfigExtended extends AxiosRequestConfig {
   metadata?: any;
@@ -16,13 +16,13 @@ interface AxiosResponseExtended extends AxiosResponse {
 }
 
 const api = axios.create({
-  baseURL: "https://api.github.com/",
+  baseURL: "https://api.github.com/"
 });
 
 // Request interceptor will set startTime
 api.interceptors.request.use(
   function (config: AxiosRequestConfigExtended): any {
-    const accessToken = getLocalAccessToken();
+    const accessToken = StorageService.getItem("accessToken", null);
 
     if (accessToken) {
       config.headers = { Authorization: `token ${accessToken}` };
@@ -55,49 +55,91 @@ api.interceptors.response.use(
       if (error.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
 
-        console.log("originalConfig", originalConfig)
+        // console.log("originalConfig", originalConfig);
+        console.log("originalConfig1", originalConfig.headers);
+
+        // Authorization: "token ghu_hYD474LhrM0sSyIqrFqsBJeDnvkGYR4JZMSa"
         // try {
 
-        //   const rs = await refreshToken();
+        // const rs = refreshTokens("http://localhost:5000/refresh_token" );
+        // refreshTokens(proxy_url).then((response) => {
+        //   console.log("refresh responeee", response);
+        // });
 
-        //   const { accessToken } = rs.data;
-        //   window.localStorage.setItem("accessToken", accessToken);
-        //   api.defaults.headers.common["x-access-token"] = accessToken;
+        refreshTokens(proxy_url).then((newTokens) => {
+          console.log("neeeeewneeeeewneeeeewneeeeew", newTokens);
+        });
 
-        //   return api(originalConfig);
+        // const accessToken = refreshTokens(proxy_url);
+        // window.localStorage.setItem("accessToken", accessToken);
+        console.log(
+          "api.defaults.headers.commonx-access-token",
+          api.defaults.headers.common
+        );
+        // originalConfig.headers = {Authorization: `token ${accessToken}`}
+        console.log("originalConfig2", originalConfig.headers);
+        // api.defaults.headers.common["x-access-token"] = accessToken;
+        debugger;
+        return api(originalConfig);
         // } catch (_error) {
         //   if (_error.response && _error.response.data) {
         //     return Promise.reject(_error.response.data);
         //   }
 
-          return Promise.reject(error);
-        }
+        return Promise.reject(error);
       }
     }
+  }
 );
 
-// function refreshToken() {
-//   return api.post("/auth/refreshtoken", {
-//     refreshToken: getLocalRefreshToken(),
-//   });
-// }
-
-export const getTokens = async (url: string, code: string | null) => {
+export const getTokens = async (proxy_url: string, code: string | null) => {
   const config = {
-    code: code,
+    code: code
   };
-  return api
+  const url = `${proxy_url}/authenticate`;
+  return axios
     .post(url, config)
     .then((tokens) => {
       return {
         accessToken: tokens.data.access_token,
-        refreshToken: tokens.data.refresh_token,
+        refreshToken: tokens.data.refresh_token
       };
     })
     .catch((error) => {
       // console.error("There was an error!", { errorMessage: error.message });
       console.error("There was an error!", error);
     });
+};
+
+export const refreshTokens = async (proxy_url: string) => {
+  const refreshToken = StorageService.getItem("refreshToken", null);
+
+  console.log("refreshTokenrefreshToken", refreshToken);
+  // if (!refreshToken) return null;
+
+  const config = {
+    refreshToken: refreshToken
+  };
+
+  const url = `${proxy_url}/refresh_token`;
+  const tokens = await axios.post(url, config);
+
+  console.log("brrrrrrrrrrrm", tokens);
+
+  // @ts-ignore
+  // return axios
+  //   .post(url , config )
+  //   .then((tokens ) => {
+  //     console.log("tokens.data",tokens.data)
+  //     return {
+  //       accessToken: tokens.data.access_token,
+  //       refreshToken: tokens.data.refresh_token,
+  //     };
+  //   })
+  //   .catch((error) => {
+  //     // console.error("There was an error!", { errorMessage: error.message });
+  //     console.error("There was an error!", error);
+  //   });
 };
 
 // GETTERS
@@ -122,17 +164,18 @@ export const getRepositories = async (
     return {
       ...res.data,
       items: mapResponseItemToTableData(res.data.items),
-      duration: res.duration,
+      duration: res.duration
     };
   });
 };
 
 export const getRepository = async (ownew: any, name: any) => {
   const url = `https://api.github.com/repos/${ownew}/${name}`;
+
   return api.get(url).then((res: AxiosResponseExtended) => {
     return {
       ...mapResponseItemToDetailsData(res.data),
-      duration: res.duration,
+      duration: res.duration
     };
   });
 };

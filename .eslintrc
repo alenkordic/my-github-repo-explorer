@@ -1,0 +1,34 @@
+{
+    "extends": ["react-app", "plugin:prettier/recommended"],
+    "globals": {},
+    "plugins": ["prettier"],
+    "parser": "@typescript-eslint/parser",
+    "env": {
+      "browser": true,
+      "node": true,
+      "es2020": true
+    },
+    "rules": {
+    //   "prettier/prettier": "warn",
+      "spaced-comment": "warn",
+      "no-unused-vars": "warn",
+      "consistent-return": 0, // allow unimportant omitted return statements
+      "import/no-anonymous-default-export": "off",
+      "import/order": ["warn", { // enforce proper ordering and organization of import statements
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always"
+      }],
+      "react/jsx-wrap-multilines": [2, { "prop": "ignore" }], // ignore parentheses for JSX passed as a prop
+      "react/jsx-props-no-spreading": 0, // allow {...props} in JSX
+      "react/jsx-one-expression-per-line": 0, // allow expressions to be on the same line with markup, resolve interference with prettier
+      "react/jsx-curly-newline": 0,
+      "react/jsx-closing-bracket-location": "warn",
+      "prettier/prettier": [
+        "error",
+        {
+            "endOfLine": "auto"
+        }
+      ]
+    }
+  }
+  

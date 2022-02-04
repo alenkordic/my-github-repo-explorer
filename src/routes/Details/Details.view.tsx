@@ -1,7 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
-import Divider from "@mui/material/Divider";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
@@ -15,10 +14,9 @@ import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box } from "@mui/system";
 
 import { DetailsViewProps } from "./../../types";
-import { Box, fontSize } from "@mui/system";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -31,17 +29,29 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
   marginLeft: "auto",
   transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
+    duration: theme.transitions.duration.shortest
+  })
 }));
 
 const DetailsView = (data: DetailsViewProps | any) => {
   const [expanded, setExpanded] = React.useState(false);
 
-  const { avatar, owner, name, ownerType,visibility,issues,watchers, forks, description,createdAt,updatedAt } = data;
+  const {
+    avatar,
+    owner,
+    name,
+    ownerType,
+    visibility,
+    issues,
+    watchers,
+    forks,
+    description,
+    createdAt,
+    updatedAt
+  } = data;
 
-  const createdAtDateString = new Date(createdAt).toLocaleString("en-US")
-  const updatedAtDateString = new Date(updatedAt).toLocaleString("en-US")
+  const createdAtDateString = new Date(createdAt).toLocaleString("en-US");
+  const updatedAtDateString = new Date(updatedAt).toLocaleString("en-US");
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -59,45 +69,69 @@ const DetailsView = (data: DetailsViewProps | any) => {
           titleTypographyProps={{ variant: "h5", noWrap: true }}
           subheader={description}
         />
-        <CardContent sx={{paddingTop: 0}}>
-        <Grid container >
-            <Grid item xs={12} md={6} sx={{display:"flex", justifyContent:"center"}}>
+        <CardContent sx={{ paddingTop: 0 }}>
+          <Grid container>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
               <Typography variant="caption" color="text.secondary">
                 {`Created at: ${createdAtDateString}`}
               </Typography>
             </Grid>
-            <Grid item xs={12} md={6} sx={{display:"flex", justifyContent:"center"}}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
               <Typography variant="caption" color="text.secondary">
                 {`Updated at: ${updatedAtDateString}`}
               </Typography>
             </Grid>
 
-            <Grid item xs={6} md={3} sx={{display:"flex", justifyContent:"center"}}>
+            <Grid
+              item
+              xs={6}
+              md={3}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
               <Typography variant="caption" color="text.secondary">
-              {`Forsk: ${forks}`}
+                {`Forsk: ${forks}`}
               </Typography>
             </Grid>
-            <Grid item xs={6} md={3} sx={{display:"flex", justifyContent:"center"}}>
+            <Grid
+              item
+              xs={6}
+              md={3}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
               <Typography variant="caption" color="text.secondary">
-              {`Watchers: ${watchers}`}
+                {`Watchers: ${watchers}`}
               </Typography>
             </Grid>
-            <Grid item xs={6} md={3} sx={{display:"flex", justifyContent:"center"}}>
+            <Grid
+              item
+              xs={6}
+              md={3}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
               <Typography variant="caption" color="text.secondary">
-              {`Issues: ${issues}`}
+                {`Issues: ${issues}`}
               </Typography>
             </Grid>
-            <Grid item xs={6} md={3} sx={{display:"flex", justifyContent:"center"}}>
+            <Grid
+              item
+              xs={6}
+              md={3}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
               <Typography variant="caption" color="text.secondary">
-              {`Visibility: ${visibility}`}
+                {`Visibility: ${visibility}`}
               </Typography>
             </Grid>
-
-
-
-
-
-
           </Grid>
         </CardContent>
         <CardMedia component="img" height="350" image={avatar} alt={owner} />

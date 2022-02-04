@@ -1,7 +1,5 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
@@ -13,9 +11,9 @@ import { ThemeProvider } from "./contexts/theme.context";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
+      refetchOnWindowFocus: false
+    }
+  }
 });
 
 ReactDOM.render(

@@ -1,19 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import {
   TableRow,
   TableCell,
   Avatar,
   Grid,
   Box,
-  Typography,
+  Typography
 } from "@mui/material";
-
 import { Info as InfoIcon } from "@mui/icons-material";
 
 import { repositoryItemsType } from "./../../../types";
-
 import useStyles from "./TableRowItem.styles";
 
 const TableRowItem = ({
@@ -22,7 +19,7 @@ const TableRowItem = ({
   description,
   owner,
   ownerType,
-  avatar,
+  avatar
 }: repositoryItemsType) => {
   const classes = useStyles();
 
@@ -37,13 +34,21 @@ const TableRowItem = ({
           <Grid item flexGrow={1}>
             <Box ml={2} className={classes.root}>
               <Grid item>
-                <Typography classes={{ h6: classes.nameText }} variant="body1" sx = {{fontWeight: 700, fontSize: 14}}>
+                <Typography
+                  classes={{ h6: classes.nameText }}
+                  variant="body1"
+                  sx={{ fontWeight: 700, fontSize: 14 }}
+                >
                   {name}
                 </Typography>
               </Grid>
 
               <Grid item>
-                <Typography classes={{ h6: classes.nameText }} variant="subtitle1" sx = {{fontWeight: 200, fontSize: 11, color: "lightgray"}}>
+                <Typography
+                  classes={{ h6: classes.nameText }}
+                  variant="subtitle1"
+                  sx={{ fontWeight: 200, fontSize: 11, color: "lightgray" }}
+                >
                   by: {owner} ({ownerType})
                 </Typography>
               </Grid>
@@ -53,7 +58,7 @@ const TableRowItem = ({
                     component="div"
                     sx={{
                       textOverflow: "ellipsis",
-                      overflow: "hidden",
+                      overflow: "hidden"
                     }}
                   >
                     <Typography variant="caption">{description}</Typography>

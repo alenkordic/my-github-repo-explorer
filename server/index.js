@@ -38,9 +38,41 @@ app.post("/authenticate", (req, res) => {
       let params = new URLSearchParams(paramsString);
       const access_token = params.get("access_token");
       const refresh_token = params.get("refresh_token");
+      console.log("param client", paramsString);
+      // Request to return data of a user that has been authenticated
+      return res.status(200).json({ access_token, refresh_token });
+    })
+    .catch((error) => {
+      return res.status(400).json(error);
+    });
+});
+
+app.post("/refresh_token", (req, res) => {
+  const { refreshToken } = req.body;
+
+  const data = new FormData();
+  data.append("refresh_token", refreshToken);
+  data.append("grant_type", "refresh_token");
+  data.append("redirect_uri", redirect_uri);
+  data.append("client_id", client_id);
+  data.append("client_secret", client_secret);
+
+  console.log("data", data);
+
+  // Request to exchange code for an access token
+  fetch(`https://github.com/login/oauth/access_token`, {
+    method: "POST",
+    body: data,
+  })
+    .then((response) => response.text())
+    .then((paramsString) => {
+      let params = new URLSearchParams(paramsString);
+      console.log("param server", paramsString);
+      const access_token = params.get("access_token");
+      const refresh_token = params.get("refresh_token");
 
       // Request to return data of a user that has been authenticated
-      return res.status(200).json({access_token, refresh_token });
+      return res.status(200).json({ access_token, refresh_token });
     })
     .catch((error) => {
       return res.status(400).json(error);

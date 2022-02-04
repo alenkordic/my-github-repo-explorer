@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import StorageService from "./../services/storage";
 
 const useLocalStorage = (key: string, initialValue: any) => {

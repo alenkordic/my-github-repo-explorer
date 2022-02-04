@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Box,
   AppBar,
@@ -9,7 +8,7 @@ import {
   Tooltip,
   Avatar,
   Menu,
-  Container,
+  Container
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
@@ -24,7 +23,10 @@ interface NavigationBArViewProps {
   user: User;
 }
 
-const NavigationBarView = ({ isAuthenticated, user }: NavigationBArViewProps) => {
+const NavigationBarView = ({
+  isAuthenticated,
+  user
+}: NavigationBArViewProps) => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -60,7 +62,7 @@ const NavigationBarView = ({ isAuthenticated, user }: NavigationBArViewProps) =>
           </Box>
 
           <Box mr={2}>
-            <Typography>{user?.login ? user.login : "Guest"}</Typography>{" "}
+            <Typography>{isAuthenticated ? user?.login : "Guest"}</Typography>{" "}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -77,12 +79,12 @@ const NavigationBarView = ({ isAuthenticated, user }: NavigationBArViewProps) =>
                   anchorEl={anchorElUser}
                   anchorOrigin={{
                     vertical: "top",
-                    horizontal: "right",
+                    horizontal: "right"
                   }}
                   keepMounted
                   transformOrigin={{
                     vertical: "top",
-                    horizontal: "right",
+                    horizontal: "right"
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}

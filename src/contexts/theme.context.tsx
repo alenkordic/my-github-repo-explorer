@@ -1,53 +1,30 @@
-import React, { useEffect, createContext, useState, useContext } from "react";
-// import { graphQLClient } from "services/graphqlClient";
+import React, { createContext, useContext } from "react";
+
 import useLocalStorage from "./../hooks/useLocalStorage";
 
 const ThemeContext = createContext({
-  toggleDarkMode : ()=> {},
+  toggleDarkMode: () => {},
   darkMode: false
 });
-
-interface AuthProviderProps {
+interface ThemeProviderProps {
   children: React.ReactNode;
 }
-
-const ThemeProvider = ({ children }: AuthProviderProps) => {
-
+const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [darkMode, setDarkMode] = useLocalStorage("darkMode", false);
 
-
-
-  // useEffect(() => {
-  //   if (darkMode) {
-  //     console.log("USERR IS LOGGED IN!");
-  //     setIsAuthenticated(true)
-  //   }
-  //   setLoading(false);
-  //   // eslint-disable-next-line
-  // }, []);
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  console.log("THEEMEEE");
-
-
-
   const handleToggleDarkMode = () => {
-    setDarkMode(!darkMode)
+    setDarkMode(!darkMode);
   };
-
   const themeContext = {
     toggleDarkMode: handleToggleDarkMode,
     darkMode: darkMode
   };
-
   return (
-    <ThemeContext.Provider value={themeContext}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={themeContext}>
+      {children}
+    </ThemeContext.Provider>
   );
 };
-
 const useThemeContext = () => useContext(ThemeContext);
 
-export { ThemeContext, ThemeProvider , useThemeContext };
+export { ThemeContext, ThemeProvider, useThemeContext };
