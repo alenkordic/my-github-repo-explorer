@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 
 
 import { SearchInputField, Table, Loader } from "./../../components";
-import { RepositoriesType } from "./../../types";
+import { RepositoriesType } from "../../interfaces";
 
 interface SearchViewProps {
   isDataLoading: boolean;
@@ -11,6 +11,7 @@ interface SearchViewProps {
   setPage: (s: number) => void;
   setRowsPerPage: (s: number) => void;
   searchInputValue: string;
+  searchString: string;
   rowsPerPage: number;
   page: number;
   responseTime: number;
@@ -25,7 +26,8 @@ const SearchView = ({
   setRowsPerPage,
   rowsPerPage,
   page,
-  responseTime
+  responseTime,
+  searchString
 }: SearchViewProps): JSX.Element => {
   const infoText = searchInputValue ? "No repositories to show..." : "";
   console.log("searchInputValue", searchInputValue);
@@ -59,6 +61,7 @@ const SearchView = ({
               rowsPerPage={rowsPerPage}
               page={page}
               responseTime={responseTime}
+              searchString={searchString}
             />
           )}
         </Box>

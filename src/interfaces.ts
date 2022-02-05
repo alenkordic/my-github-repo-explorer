@@ -56,6 +56,7 @@ export type DetailsViewProps = {
   avatar: string;
   description: string;
   url: string;
+  search: string;
   createdAt: Date;
   updatedAt: Date;
   watchers: number;

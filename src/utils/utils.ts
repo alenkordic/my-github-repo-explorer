@@ -1,4 +1,4 @@
-import { repositoryItemsType, repositoryItemType } from "./../types";
+import { repositoryItemsType, repositoryItemType } from "../interfaces";
 
 export const mapResponseItemToTableData = (
   responseItems: []

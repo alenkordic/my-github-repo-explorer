@@ -32,7 +32,6 @@ api.interceptors.request.use(
       config.headers = { Authorization: `token ${accessToken}` };
     }
     config.metadata = { startTime: new Date() };
-    console.log("config", config)
     return config;
   },
   function (error: any):any {

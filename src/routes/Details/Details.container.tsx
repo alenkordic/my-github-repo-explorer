@@ -21,7 +21,7 @@ const DetailsContainer = () => {
   if (isLoading) return <h1>Loadiiing...</h1>;
 
   if (status === "success") {
-    console.log("DATA", { ...data });
+    // console.log("DATA", { ...data });
   }
 
   return <DetailsView {...data} />;

@@ -14,7 +14,7 @@ import {
 
 import TableRowItem from "./TableRowItem/TableRowItem";
 import { displaySecondsFromMilis } from "./../../utils/utils";
-import { RepositoriesType } from "./../../types";
+import { RepositoriesType } from "../../interfaces";
 
 interface TableProps {
   isDataLoading: boolean;
@@ -24,6 +24,7 @@ interface TableProps {
   rowsPerPage: number;
   page: number;
   responseTime: number;
+  searchString: string;
 }
 
 const Table = ({
@@ -32,7 +33,8 @@ const Table = ({
   setRowsPerPage,
   rowsPerPage,
   page,
-  responseTime
+  responseTime,
+  searchString
 }: TableProps): JSX.Element => {
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -67,7 +69,7 @@ const Table = ({
           </TableHead>
           <TableBody>
             {repositories.items.map((repository) => {
-              return <TableRowItem key={repository.id} {...repository} />;
+              return <TableRowItem key={repository.id} {...repository} searchString={searchString}/>;
             })}
           </TableBody>
         </MUITable>

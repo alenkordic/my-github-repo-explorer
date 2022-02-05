@@ -1,14 +1,24 @@
-import React, { useState, Suspense, lazy } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { useQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
 
 import { getRepositories } from "./../../services/api";
 import { Loader } from "./../../components";
 const SearchView = lazy(() => import("./Search.view"));
 
 const SearchContainer = () => {
-  const [searchString, setSearchString] = useState("");
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(25);
+  const [searchString, setSearchString] = useState<string>("");
+  const [page, setPage] = useState<number>(0);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(25);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(()=>{
+    const search = searchParams.get("search")
+    if(search) {
+      setSearchString(search)
+    }
+  }, [])
+
 
   const { isLoading, data: repositories = { items: [], total_count: 0 } } =
     useQuery(
@@ -21,6 +31,9 @@ const SearchContainer = () => {
     );
 
   const onInputChangeHandler = (string: string) => {
+    setSearchParams({
+      search: string
+    })
     setSearchString(string);
   };
 
@@ -36,6 +49,7 @@ const SearchContainer = () => {
         rowsPerPage={rowsPerPage}
         page={page}
         responseTime={repositories?.duration}
+        searchString={searchString}
       />
     </Suspense>
   );
