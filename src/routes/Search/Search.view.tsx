@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
+
 import { SearchInputField, Table, Loader } from "./../../components";
 import { RepositoriesType } from "./../../types";
 
@@ -39,6 +40,7 @@ const SearchView = ({
       px={3}
       mt={16}
     >
+    
       <Box mb={5} width="100%">
         <SearchInputField onChange={onInputChange} value={searchInputValue} />
       </Box>

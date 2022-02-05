@@ -10,6 +10,12 @@ import {
   proxy_url
 } from "./../../constants/enviroments";
 
+interface TokensProps {
+  accessToken: string;
+  refreshToken: string;
+}
+
+
 const LoginButton = () => {
   // @ts-ignore
   const { login, logout, isAuthenticated } = useAuthContext();
@@ -18,7 +24,7 @@ const LoginButton = () => {
   const code = searchParams.get("code");
 
   if (code) {
-    getTokens(proxy_url, code).then((res) => {
+    getTokens(code).then((res: TokensProps) => {
       console.log("ggg0", res);
       if (res) {
         login(res.accessToken, res.refreshToken);

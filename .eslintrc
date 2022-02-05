@@ -9,7 +9,6 @@
       "es2020": true
     },
     "rules": {
-    //   "prettier/prettier": "warn",
       "spaced-comment": "warn",
       "no-unused-vars": "warn",
       "consistent-return": 0, // allow unimportant omitted return statements
@@ -24,6 +23,7 @@
       "react/jsx-curly-newline": 0,
       "react/jsx-closing-bracket-location": "warn",
       "prettier/prettier": [
+        "warn",
         "error",
         {
             "endOfLine": "auto"

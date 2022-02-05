@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse,AxiosInstance } from "axios";
 
 import {
   mapResponseItemToTableData,
@@ -10,40 +10,46 @@ import { proxy_url } from "./../constants/enviroments";
 interface AxiosRequestConfigExtended extends AxiosRequestConfig {
   metadata?: any;
 }
+
+
 interface AxiosResponseExtended extends AxiosResponse {
   config: AxiosRequestConfigExtended;
   duration?: number;
 }
 
+// Creating an instance
 const api = axios.create({
   baseURL: "https://api.github.com/"
 });
 
-// Request interceptor will set startTime
+// Request interceptors
 api.interceptors.request.use(
-  function (config: AxiosRequestConfigExtended): any {
+  // Set request startTime
+  function (config: AxiosRequestConfigExtended): AxiosRequestConfigExtended | Promise<AxiosRequestConfigExtended> {
     const accessToken = StorageService.getItem("accessToken", null);
-
+    // If exists, access token will be setted in the header
     if (accessToken) {
       config.headers = { Authorization: `token ${accessToken}` };
     }
     config.metadata = { startTime: new Date() };
+    console.log("config", config)
     return config;
   },
-  function (error) {
+  function (error: any):any {
     return Promise.reject(error);
   }
 );
 
-// Response interceptor will set endTime & calculate the duration
+// Response interceptors
 api.interceptors.response.use(
-  function (response: AxiosResponseExtended) {
+  function (response: AxiosResponseExtended): AxiosResponseExtended | Promise<AxiosResponseExtended> {
+    // Set sresponse endTime & calculate the duration
     response.config.metadata.endTime = new Date();
     response.duration =
       response.config.metadata.endTime - response.config.metadata.startTime;
     return response;
   },
-  function (error) {
+  async function (error) {
     error.config.metadata.endTime = new Date();
     error.duration =
       error.config.metadata.endTime - error.config.metadata.startTime;
@@ -51,48 +57,40 @@ api.interceptors.response.use(
     const originalConfig = error.config;
 
     if (error.response) {
-      // Access Token was expired
       if (error.response.status === 401 && !originalConfig._retry) {
+        // CASE: Access Token was expired and try to get new one using refresh token
         originalConfig._retry = true;
+        try {
+          const {
+            data: { accessToken, refreshToken }
+          } = await refreshTokens();
 
-        // console.log("originalConfig", originalConfig);
-        console.log("originalConfig1", originalConfig.headers);
+          StorageService.setItem("accessToken", accessToken);
+          StorageService.setItem("refreshToken", refreshToken);
 
-        // Authorization: "token ghu_hYD474LhrM0sSyIqrFqsBJeDnvkGYR4JZMSa"
-        // try {
+          api.defaults.headers.common = {
+            Authorization: `token ${refreshToken}`
+          };
 
-        // const rs = refreshTokens("http://localhost:5000/refresh_token" );
-        // refreshTokens(proxy_url).then((response) => {
-        //   console.log("refresh responeee", response);
-        // });
-
-        refreshTokens(proxy_url).then((newTokens) => {
-          console.log("neeeeewneeeeewneeeeewneeeeew", newTokens);
-        });
-
-        // const accessToken = refreshTokens(proxy_url);
-        // window.localStorage.setItem("accessToken", accessToken);
-        console.log(
-          "api.defaults.headers.commonx-access-token",
-          api.defaults.headers.common
-        );
-        // originalConfig.headers = {Authorization: `token ${accessToken}`}
-        console.log("originalConfig2", originalConfig.headers);
-        // api.defaults.headers.common["x-access-token"] = accessToken;
-        debugger;
-        return api(originalConfig);
-        // } catch (_error) {
-        //   if (_error.response && _error.response.data) {
-        //     return Promise.reject(_error.response.data);
-        //   }
-
-        return Promise.reject(error);
+          return api(originalConfig);
+        } catch (_error: any) {
+          if (_error.response && _error.response.data) {
+            return Promise.reject(_error.response.data);
+          }
+          return Promise.reject(error);
+        }
       }
     }
   }
 );
 
-export const getTokens = async (proxy_url: string, code: string | null) => {
+interface TokensProps {
+  accessToken: string | null;
+  refreshToken: string | null;
+}
+
+// Exchanging temporary code for tokens
+export const getTokens = (code: string | null): any => {
   const config = {
     code: code
   };
@@ -101,55 +99,32 @@ export const getTokens = async (proxy_url: string, code: string | null) => {
     .post(url, config)
     .then((tokens) => {
       return {
-        accessToken: tokens.data.access_token,
-        refreshToken: tokens.data.refresh_token
+        accessToken: tokens.data.accessToken,
+        refreshToken: tokens.data.refreshToken
       };
     })
     .catch((error) => {
-      // console.error("There was an error!", { errorMessage: error.message });
       console.error("There was an error!", error);
     });
 };
 
-export const refreshTokens = async (proxy_url: string) => {
+// Exchanging resresh token for the new access token
+export const refreshTokens = () => {
   const refreshToken = StorageService.getItem("refreshToken", null);
-
-  console.log("refreshTokenrefreshToken", refreshToken);
-  // if (!refreshToken) return null;
-
   const config = {
     refreshToken: refreshToken
   };
-
   const url = `${proxy_url}/refresh_token`;
-  const tokens = await axios.post(url, config);
-
-  console.log("brrrrrrrrrrrm", tokens);
-
-  // @ts-ignore
-  // return axios
-  //   .post(url , config )
-  //   .then((tokens ) => {
-  //     console.log("tokens.data",tokens.data)
-  //     return {
-  //       accessToken: tokens.data.access_token,
-  //       refreshToken: tokens.data.refresh_token,
-  //     };
-  //   })
-  //   .catch((error) => {
-  //     // console.error("There was an error!", { errorMessage: error.message });
-  //     console.error("There was an error!", error);
-  //   });
+  return axios.post(url, config);
 };
 
-// GETTERS
+// Get list of repositories
 export const getRepositories = async (
   searchString: string,
   page: number,
   rowsPerPage: number
 ) => {
   let queryString = "";
-  // const queryString = 'q=' + encodeURIComponent('react-complete-guide-code in:name');
   if (searchString.trim().length === 0) {
     queryString = `q=per_page=${rowsPerPage}&page=${page + 1}`;
   } else {
@@ -158,7 +133,7 @@ export const getRepositories = async (
     )}&per_page=${rowsPerPage}&page=${page + 1}`;
   }
 
-  const url = `https://api.github.com/search/repositories?${queryString}`;
+  const url = `/search/repositories?${queryString}`;
 
   return api.get(url).then((res: AxiosResponseExtended) => {
     return {
@@ -169,8 +144,9 @@ export const getRepositories = async (
   });
 };
 
+// Get exact repository
 export const getRepository = async (ownew: any, name: any) => {
-  const url = `https://api.github.com/repos/${ownew}/${name}`;
+  const url = `/repos/${ownew}/${name}`;
 
   return api.get(url).then((res: AxiosResponseExtended) => {
     return {
@@ -180,14 +156,9 @@ export const getRepository = async (ownew: any, name: any) => {
   });
 };
 
+// Get authenticated user
 export const getUser = async () => {
-  return api.get(`https://api.github.com/user`).then((res: any) => {
+  return api.get(`/user`).then((res: any) => {
     return res.data;
   });
 };
-
-// export const refetchToken = ()=> {
-//   api.get...
-// }
-
-//logiku prebaciti ovde za fetch tokena

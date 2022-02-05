@@ -36,11 +36,11 @@ app.post("/authenticate", (req, res) => {
     .then((response) => response.text())
     .then((paramsString) => {
       let params = new URLSearchParams(paramsString);
-      const access_token = params.get("access_token");
-      const refresh_token = params.get("refresh_token");
+      const accessToken = params.get("access_token");
+      const refreshToken = params.get("refresh_token");
       console.log("param client", paramsString);
       // Request to return data of a user that has been authenticated
-      return res.status(200).json({ access_token, refresh_token });
+      return res.status(200).json({ accessToken, refreshToken });
     })
     .catch((error) => {
       return res.status(400).json(error);
@@ -68,11 +68,11 @@ app.post("/refresh_token", (req, res) => {
     .then((paramsString) => {
       let params = new URLSearchParams(paramsString);
       console.log("param server", paramsString);
-      const access_token = params.get("access_token");
-      const refresh_token = params.get("refresh_token");
+      const accessToken = params.get("access_token");
+      const refreshToken = params.get("refresh_token");
 
       // Request to return data of a user that has been authenticated
-      return res.status(200).json({ access_token, refresh_token });
+      return res.status(200).json({ accessToken, refreshToken });
     })
     .catch((error) => {
       return res.status(400).json(error);
