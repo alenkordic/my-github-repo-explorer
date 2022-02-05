@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+
 import { styled } from "@mui/material/styles";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import { red } from "@mui/material/colors";
@@ -20,11 +20,10 @@ import {
   CardContent,
   CardMedia,
   CardHeader,
-  Card,
-  Link as MUILink
+  Card
 } from "@mui/material";
 
-import { DetailsViewProps } from "../../interfaces";
+import { RepositoryItemDetails } from "../../interfaces/interfaces";
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -41,9 +40,15 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   })
 }));
 
-const DetailsView = (data: DetailsViewProps | any ) => {
-  const [expanded, setExpanded] = React.useState(false);
+interface DetailsVIewProps {
+  repository: RepositoryItemDetails;
+  readMe: string | undefined;
+}
 
+const DetailsView = ({repository, readMe}:DetailsVIewProps) => {
+  const [expanded, setExpanded] = React.useState<boolean>(false);
+  // console.log("daaaaaaa", data);
+  // console.log("readMereadMe", readMe);
   const {
     avatar,
     owner,
@@ -54,9 +59,14 @@ const DetailsView = (data: DetailsViewProps | any ) => {
     watchers,
     forks,
     description,
-    createdAt,
-    updatedAt
-  } = data;
+    createdAt = "2519519198",
+    updatedAt = "2519519198",
+    duration
+  } = repository;
+
+
+  console.log("repositoryrepositoryrepository2",readMe)
+
 
   const createdAtDateString = new Date(createdAt).toLocaleString("en-US");
   const updatedAtDateString = new Date(updatedAt).toLocaleString("en-US");
@@ -64,13 +74,10 @@ const DetailsView = (data: DetailsViewProps | any ) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  // console.log("searchsearchsearchsearch",search)
-  // const searchParams = "?" +  new URLSearchParams({search: search}).toString()
+
   return (
     <Box mt={15}>
-      {/* <Link to={`/repositories`}>
-        <Typography>Go back</Typography>
-      </Link> */}
+      <div>readme</div>
       <Card sx={{ maxWidth: 600, margin: "0 auto" }}>
         <CardHeader
           avatar={

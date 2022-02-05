@@ -7,7 +7,7 @@ interface SearchInputFieldProps {
 }
 
 const SearchInputField = ({ onChange, value }: SearchInputFieldProps) => {
-  const [searchString, setSearchString] = useState("");
+  const [searchString, setSearchString] = useState<string>("");
 
   useEffect(() => {
     const handler = setTimeout(() => {

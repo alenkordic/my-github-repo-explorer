@@ -2,29 +2,48 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
+import { getRepository, getRepositoryReadMe } from "./../../services/api";
+import {encodeBase64ToString} from "./../../utils/utils"
 import DetailsView from "./Details.view";
-import { getRepository } from "./../../services/api";
+import { Loader } from "../../components";
 
-const DetailsContainer = () => {
+const DetailsContainer = (): JSX.Element => {
   let params = useParams();
 
   const { owner, repoName } = params;
 
-  const { data, isLoading, status } = useQuery(
+  const { data: repository, isLoading: repoDataIsLoading, isSuccess } = useQuery(
     ["repository", owner, repoName],
-    () => getRepository(owner, repoName),
-    {
-      enabled: true
-    }
+    () => getRepository(owner, repoName)
   );
 
-  if (isLoading) return <h1>Loadiiing...</h1>;
+  const {
+    data: readMeContent,
+    isLoading: readMeIsLoading,
+    error
+  } = useQuery(["readme", owner, repoName], () =>
+    getRepositoryReadMe(owner, repoName)
+  );
 
-  if (status === "success") {
-    // console.log("DATA", { ...data });
+  if (error || !repository) return <h1>Error readme{error}</h1>;
+
+  if (repoDataIsLoading || readMeIsLoading) {
+    return <Loader text="Loading details..." />;
   }
 
-  return <DetailsView {...data} />;
+  console.log("repositoryrepository", repository)
+  let encodedReadMe;
+  if(readMeContent) {
+    encodedReadMe = encodeBase64ToString(readMeContent);
+  }
+
+  const read = readMeContent;
+
+
+
+
+  return <DetailsView repository={repository} readMe={encodedReadMe}/>;
+
 };
 
 export default DetailsContainer;

@@ -4,17 +4,12 @@ import { useSearchParams } from "react-router-dom";
 
 import { useAuthContext } from "./../../contexts/auth.context";
 import { getTokens } from "./../../services/api";
-import {
-  client_id,
-  redirect_uri,
-  proxy_url
-} from "./../../constants/enviroments";
+import { client_id, redirect_uri } from "./../../constants/enviroments";
 
 interface TokensProps {
   accessToken: string;
   refreshToken: string;
 }
-
 
 const LoginButton = () => {
   // @ts-ignore
@@ -25,7 +20,6 @@ const LoginButton = () => {
 
   if (code) {
     getTokens(code).then((res: TokensProps) => {
-      console.log("ggg0", res);
       if (res) {
         login(res.accessToken, res.refreshToken);
       }

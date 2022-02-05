@@ -1,8 +1,13 @@
-import { repositoryItemsType, repositoryItemType } from "../interfaces";
+import { Buffer } from "buffer";
+import {
+  RepositoryItem,
+  RepositoryItemDetails
+} from "../interfaces/interfaces";
+import { GithubGetRepositoryResponse } from "../interfaces/github";
 
 export const mapResponseItemToTableData = (
-  responseItems: []
-): repositoryItemsType[] => {
+  responseItems: GithubGetRepositoryResponse[]
+): RepositoryItem[] => {
   return responseItems.map((item: any) => {
     return {
       id: item.id,
@@ -16,8 +21,8 @@ export const mapResponseItemToTableData = (
 };
 
 export const mapResponseItemToDetailsData = (
-  responseItem: any
-): repositoryItemType => {
+  responseItem: GithubGetRepositoryResponse
+): RepositoryItemDetails => {
   return {
     id: responseItem.id,
     name: responseItem.name,
@@ -39,4 +44,8 @@ export const mapResponseItemToDetailsData = (
 export const displaySecondsFromMilis = (timestampInMilis: number): number => {
   const timeInSeconds = (timestampInMilis / 1000).toFixed(3);
   return parseFloat(timeInSeconds);
+};
+
+export const encodeBase64ToString = (base64: string):string => {
+  return Buffer.from(base64, "base64").toString();
 };

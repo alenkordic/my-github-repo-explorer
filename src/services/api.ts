@@ -1,4 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosResponse,AxiosInstance } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { RepositoryItemDetails } from "./../interfaces/interfaces";
+import { GethubReadMeContentResponse } from "./../interfaces/github";
 
 import {
   mapResponseItemToTableData,
@@ -10,7 +12,6 @@ import { proxy_url } from "./../constants/enviroments";
 interface AxiosRequestConfigExtended extends AxiosRequestConfig {
   metadata?: any;
 }
-
 
 interface AxiosResponseExtended extends AxiosResponse {
   config: AxiosRequestConfigExtended;
@@ -25,7 +26,9 @@ const api = axios.create({
 // Request interceptors
 api.interceptors.request.use(
   // Set request startTime
-  function (config: AxiosRequestConfigExtended): AxiosRequestConfigExtended | Promise<AxiosRequestConfigExtended> {
+  function (
+    config: AxiosRequestConfigExtended
+  ): AxiosRequestConfigExtended | Promise<AxiosRequestConfigExtended> {
     const accessToken = StorageService.getItem("accessToken", null);
     // If exists, access token will be setted in the header
     if (accessToken) {
@@ -34,14 +37,16 @@ api.interceptors.request.use(
     config.metadata = { startTime: new Date() };
     return config;
   },
-  function (error: any):any {
+  function (error: any): any {
     return Promise.reject(error);
   }
 );
 
 // Response interceptors
 api.interceptors.response.use(
-  function (response: AxiosResponseExtended): AxiosResponseExtended | Promise<AxiosResponseExtended> {
+  function (
+    response: AxiosResponseExtended
+  ): AxiosResponseExtended | Promise<AxiosResponseExtended> {
     // Set sresponse endTime & calculate the duration
     response.config.metadata.endTime = new Date();
     response.duration =
@@ -83,11 +88,6 @@ api.interceptors.response.use(
   }
 );
 
-interface TokensProps {
-  accessToken: string | null;
-  refreshToken: string | null;
-}
-
 // Exchanging temporary code for tokens
 export const getTokens = (code: string | null): any => {
   const config = {
@@ -117,6 +117,18 @@ export const refreshTokens = () => {
   return axios.post(url, config);
 };
 
+// Get authenticated user
+export const getUser = async () => {
+  return api
+    .get(`/user`)
+    .then((res: any) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.error("Error to get user.", error);
+    });
+};
+
 // Get list of repositories
 export const getRepositories = async (
   searchString: string,
@@ -144,20 +156,37 @@ export const getRepositories = async (
 };
 
 // Get exact repository
-export const getRepository = async (ownew: any, name: any) => {
+export const getRepository = async (
+  ownew: string | undefined,
+  name: string | undefined
+): Promise<RepositoryItemDetails> => {
   const url = `/repos/${ownew}/${name}`;
-
-  return api.get(url).then((res: AxiosResponseExtended) => {
-    return {
+  const config = {
+    headers: {
+      Accept: "application/vnd.github.v3+json"
+    }
+  };
+  return api.get(url, config).then((res: AxiosResponseExtended) => {
+    const repository = {
       ...mapResponseItemToDetailsData(res.data),
       duration: res.duration
     };
+    return repository;
   });
 };
 
-// Get authenticated user
-export const getUser = async () => {
-  return api.get(`/user`).then((res: any) => {
-    return res.data;
+// Get ReadMe of repository
+export const getRepositoryReadMe = async (
+  ownew: string | undefined,
+  name: string | undefined
+): Promise<string> => {
+  const url = `/repos/${ownew}/${name}/readme`;
+  const config = {
+    headers: {
+      Accept: "application/vnd.github.v3+json"
+    }
+  };
+  return api.get(url, config).then(({ data: { content } }): any => {
+    return content;
   });
 };

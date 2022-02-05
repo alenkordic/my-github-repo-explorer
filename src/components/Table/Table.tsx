@@ -12,20 +12,11 @@ import {
   Typography
 } from "@mui/material";
 
+import { TableProps } from "../../interfaces/interfaces";
+
 import TableRowItem from "./TableRowItem/TableRowItem";
 import { displaySecondsFromMilis } from "./../../utils/utils";
-import { RepositoriesType } from "../../interfaces";
 
-interface TableProps {
-  isDataLoading: boolean;
-  repositories: RepositoriesType;
-  setPage: (s: number) => void;
-  setRowsPerPage: (s: number) => void;
-  rowsPerPage: number;
-  page: number;
-  responseTime: number;
-  searchString: string;
-}
 
 const Table = ({
   repositories,
@@ -33,8 +24,7 @@ const Table = ({
   setRowsPerPage,
   rowsPerPage,
   page,
-  responseTime,
-  searchString
+  responseTime
 }: TableProps): JSX.Element => {
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -69,7 +59,7 @@ const Table = ({
           </TableHead>
           <TableBody>
             {repositories.items.map((repository) => {
-              return <TableRowItem key={repository.id} {...repository} searchString={searchString}/>;
+              return <TableRowItem key={repository.id} {...repository} />;
             })}
           </TableBody>
         </MUITable>

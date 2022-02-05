@@ -10,25 +10,18 @@ import {
 } from "@mui/material";
 import { Info as InfoIcon } from "@mui/icons-material";
 
-import { repositoryItemsType } from "../../../interfaces";
+import { RepositoryItem } from "../../../interfaces/interfaces";
+
 import useStyles from "./TableRowItem.styles";
 
-interface TableRowItem extends repositoryItemsType {
-  searchString: string;
-}
-
 const TableRowItem = ({
-  id,
   name,
   description,
   owner,
   ownerType,
-  avatar,
-  searchString,
-}: TableRowItem) => {
+  avatar
+}: RepositoryItem) => {
   const classes = useStyles();
-
-  const searchParams = "?" +  new URLSearchParams({search: searchString}).toString()
 
   return (
     <TableRow className={classes.root} hover role="checkbox" tabIndex={-1}>
@@ -89,10 +82,3 @@ const TableRowItem = ({
 };
 
 export default TableRowItem;
-
-// id: item.id,
-// name: item.name,
-// owner: item.owner.login,
-// ownerType: item.owner.type,
-// avatar: item.owner.avatar_url,
-// description: item.description,
