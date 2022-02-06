@@ -17,7 +17,6 @@ import { TableProps } from "../../interfaces/interfaces";
 import TableRowItem from "./TableRowItem/TableRowItem";
 import { displaySecondsFromMilis } from "./../../utils/utils";
 
-
 const Table = ({
   repositories,
   setPage,
@@ -58,8 +57,8 @@ const Table = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {repositories.items.map((repository) => {
-              return <TableRowItem key={repository.id} {...repository} />;
+            {repositories.items.map((repository, index) => {
+              return <TableRowItem key={index} {...repository} />;
             })}
           </TableBody>
         </MUITable>

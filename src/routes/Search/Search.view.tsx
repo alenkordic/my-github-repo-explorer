@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
 
-import { SearchInputField, Table, Loader } from "./../../components";
 import { SearchViewProps } from "../../interfaces/interfaces";
+
+import { SearchInputField, Table, Loader } from "./../../components";
 
 const SearchView = ({
   onInputChange,

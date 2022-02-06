@@ -2,18 +2,16 @@ import { makeStyles, createStyles } from "@mui/styles";
 
 export default makeStyles(() =>
   createStyles({
-    root: {
-    },
+    root: {},
     descriptionText: {
-        width: 250, 
-        whiteSpace: "nowrap"  
+      width: 250,
+      whiteSpace: "nowrap"
     },
 
-    '@media (max-width: 400px)': {  
-        descriptionText: {
-            width: 120, 
-        },
+    "@media (max-width: 400px)": {
+      descriptionText: {
+        width: 120
       }
-
+    }
   })
 );

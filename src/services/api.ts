@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { RepositoryItemDetails } from "./../interfaces/interfaces";
-import { GethubReadMeContentResponse } from "./../interfaces/github";
 
+import { RepositoryItemDetails } from "./../interfaces/interfaces";
 import {
   mapResponseItemToTableData,
   mapResponseItemToDetailsData
@@ -179,14 +178,21 @@ export const getRepository = async (
 export const getRepositoryReadMe = async (
   ownew: string | undefined,
   name: string | undefined
-): Promise<string> => {
+): Promise<any> => {
   const url = `/repos/${ownew}/${name}/readme`;
+
   const config = {
     headers: {
       Accept: "application/vnd.github.v3+json"
     }
   };
-  return api.get(url, config).then(({ data: { content } }): any => {
-    return content;
-  });
+
+  return api
+    .get(url, config)
+    .then(({ data: { content } }): any => {
+      return content;
+    })
+    .catch((error) => {
+      return error;
+    });
 };

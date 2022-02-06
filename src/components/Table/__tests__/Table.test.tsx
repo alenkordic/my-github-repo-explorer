@@ -1,9 +1,8 @@
 import React from "react";
-import Table from "../Table";
 import { BrowserRouter } from "react-router-dom";
-import { render, screen } from "@testing-library/react";
-import { AuthContext } from "./../../../contexts/auth.context";
 import renderer from "react-test-renderer";
+
+import Table from "../Table";
 
 const tableProps = {
   repositories: {

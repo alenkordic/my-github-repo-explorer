@@ -1,9 +1,11 @@
 import React from "react";
-import LoginButton from "../LoginButton";
-import { BrowserRouter } from "react-router-dom";
-import { render, screen } from "@testing-library/react";
-import { AuthContext } from "./../../../contexts/auth.context";
 import renderer from "react-test-renderer";
+import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+
+import LoginButton from "../LoginButton";
+
+import { AuthContext } from "./../../../contexts/auth.context";
 
 function getBtn(isAuth: boolean) {
   const value = {

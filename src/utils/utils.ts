@@ -1,4 +1,3 @@
-import { Buffer } from "buffer";
 import {
   RepositoryItem,
   RepositoryItemDetails
@@ -44,8 +43,4 @@ export const mapResponseItemToDetailsData = (
 export const displaySecondsFromMilis = (timestampInMilis: number): number => {
   const timeInSeconds = (timestampInMilis / 1000).toFixed(3);
   return parseFloat(timeInSeconds);
-};
-
-export const encodeBase64ToString = (base64: string):string => {
-  return Buffer.from(base64, "base64").toString();
 };

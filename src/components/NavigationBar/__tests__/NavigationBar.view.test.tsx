@@ -1,9 +1,11 @@
 import React from "react";
-import NavigationBarView from "../NavigationBar.view";
+import renderer from "react-test-renderer";
 import { BrowserRouter } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
+
+import NavigationBarView from "../NavigationBar.view";
+
 import { AuthContext } from "./../../../contexts/auth.context";
-import renderer from "react-test-renderer";
 
 const user = {
   avatar_url: "https://avatars.githubusercontent.com/u/62653386?v=4",
