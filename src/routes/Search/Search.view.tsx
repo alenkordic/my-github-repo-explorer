@@ -38,7 +38,6 @@ const SearchView = ({
           ) : (
             <Table
               repositories={repositories}
-              isDataLoading={isDataLoading}
               setPage={setPage}
               setRowsPerPage={setRowsPerPage}
               rowsPerPage={rowsPerPage}

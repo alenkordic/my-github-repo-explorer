@@ -17,7 +17,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const [acceessToken, setAcceessToken] = useLocalStorage("accessToken", null);
-  const [refreshToken, setRefreshToken] = useLocalStorage("refreshToken", null);
+  const [, setRefreshToken] = useLocalStorage("refreshToken", null);
 
   useEffect(() => {
     if (acceessToken) {

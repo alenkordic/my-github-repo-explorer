@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar NOT authenticated render correctly 1`] = `
+<header
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-1pfoj5s-MuiPaper-root-MuiAppBar-root"
+>
+  <div
+    className="MuiContainer-root MuiContainer-maxWidthXl css-19r6kue-MuiContainer-root"
+  >
+    <div
+      className="MuiToolbar-root MuiToolbar-regular css-1cndkqf-MuiToolbar-root"
+    >
+      <div
+        className="MuiBox-root css-0"
+      >
+        <div
+          className="MuiFormGroup-root css-dmmspl-MuiFormGroup-root"
+        >
+          <label
+            className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementBottom css-77as7c-MuiFormControlLabel-root"
+          >
+            <span
+              className="MuiSwitch-root MuiSwitch-sizeMedium css-lu9khh-MuiSwitch-root"
+            >
+              <span
+                className="MuiSwitch-switchBase MuiSwitch-colorPrimary MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase"
+                onBlur={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={null}
+              >
+                <input
+                  checked={false}
+                  className="MuiSwitch-input PrivateSwitchBase-input css-1m9pwf3"
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <span
+                  className="MuiSwitch-thumb css-jsexje-MuiSwitch-thumb"
+                />
+              </span>
+              <span
+                className="MuiSwitch-track css-1yjjitx-MuiSwitch-track"
+              />
+            </span>
+            <span
+              className="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-1j8847n-MuiTypography-root"
+            >
+              Light mode  
+            </span>
+          </label>
+        </div>
+      </div>
+      <div
+        className="MuiTypography-root MuiTypography-h6 MuiTypography-noWrap css-1cblhx4-MuiTypography-root"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge css-tzssek-MuiSvgIcon-root"
+          data-testid="GitHubIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"
+          />
+        </svg>
+      </div>
+      <div
+        className="MuiBox-root css-19aihql"
+      >
+        <div
+          data-test="loginButton"
+        >
+          <button
+            className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1q39md6-MuiButtonBase-root-MuiButton-root"
+            disabled={false}
+            onBlur={[Function]}
+            onContextMenu={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <a
+              href="https://github.com/login/oauth/authorize?scope=user&client_id=Iv1.a22e2f19afba852b&redirect_uri=http://localhost:3000/"
+              style={
+                Object {
+                  "color": "inherit",
+                  "textDecoration": "none",
+                }
+              }
+            >
+              <p
+                className="MuiTypography-root MuiTypography-body1 css-1uwgr7b-MuiTypography-root"
+              >
+                Login with GitHub
+              </p>
+            </a>
+          </button>
+        </div>
+      </div>
+      <div
+        className="MuiBox-root css-1ay9vb9"
+      >
+        <p
+          className="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
+        >
+          Guest
+        </p>
+         
+      </div>
+      <div
+        className="MuiBox-root css-2uchni"
+      />
+    </div>
+  </div>
+</header>
+`;

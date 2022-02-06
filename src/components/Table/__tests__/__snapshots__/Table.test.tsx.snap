@@ -1,0 +1,275 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table render correctly 1`] = `
+<div
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-1fw5qro-MuiPaper-root"
+>
+  <div
+    className="MuiTableContainer-root css-ahxqwc-MuiTableContainer-root"
+  >
+    <table
+      aria-label="sticky table"
+      className="MuiTable-root MuiTable-stickyHeader css-xn82ks-MuiTable-root"
+      role={null}
+    >
+      <thead
+        className="MuiTableHead-root css-15wwp11-MuiTableHead-root"
+        role={null}
+      >
+        <tr
+          className="MuiTableRow-root MuiTableRow-head css-1q1u3t4-MuiTableRow-root"
+          role={null}
+        >
+          <th
+            aria-sort={null}
+            className="MuiTableCell-root MuiTableCell-head MuiTableCell-stickyHeader MuiTableCell-sizeMedium css-y8ay40-MuiTableCell-root"
+            scope="col"
+          >
+            <div
+              className="MuiBox-root css-1bvc4cc"
+            >
+              <h6
+                className="MuiTypography-root MuiTypography-subtitle2 css-13co9as-MuiTypography-root"
+              >
+                Results displayed in 1 seconds
+              </h6>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        className="MuiTableBody-root css-apqrd9-MuiTableBody-root"
+        role={null}
+      >
+        <tr
+          className="MuiTableRow-root MuiTableRow-hover makeStyles-root-1 css-1q1u3t4-MuiTableRow-root"
+          role="checkbox"
+          tabIndex={-1}
+        >
+          <td
+            aria-sort={null}
+            className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+          >
+            <div
+              className="MuiGrid-root MuiGrid-container css-k2ad8f-MuiGrid-root"
+            >
+              <div
+                className="MuiGrid-root MuiGrid-item css-ev762u-MuiGrid-root"
+              >
+                <div
+                  className="MuiAvatar-root MuiAvatar-circular css-1wlk0hk-MuiAvatar-root"
+                >
+                  <img
+                    alt="alenkordica"
+                    className="MuiAvatar-img css-1pqm26d-MuiAvatar-img"
+                    src="https://avatars.githubusercontent.com/u/62653386?v=4"
+                  />
+                </div>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item css-4pkl32-MuiGrid-root"
+              >
+                <div
+                  className="makeStyles-root-1 MuiBox-root css-d0uhtl"
+                >
+                  <div
+                    className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                  >
+                    <p
+                      className="MuiTypography-root MuiTypography-body1 css-1jop4hn-MuiTypography-root"
+                    >
+                      my-github-repo-explorer
+                    </p>
+                  </div>
+                  <div
+                    className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                  >
+                    <h6
+                      className="MuiTypography-root MuiTypography-subtitle1 css-1w9jkag-MuiTypography-root"
+                    >
+                      by: 
+                      alenkordica
+                       (
+                      Private
+                      )
+                    </h6>
+                  </div>
+                  <div
+                    className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+                  >
+                    <div
+                      className="makeStyles-descriptionText-3"
+                    >
+                      <div
+                        className="MuiBox-root css-1rwfs5y"
+                      >
+                        <span
+                          className="MuiTypography-root MuiTypography-caption css-1sn4lm3-MuiTypography-root"
+                        >
+                          Descriptio Lorem Ipsum Text
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item css-ev762u-MuiGrid-root"
+              >
+                <div
+                  className="MuiBox-root css-d0uhtl"
+                >
+                  <a
+                    href="/repositories/alenkordica/my-github-repo-explorer"
+                    onClick={[Function]}
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root MuiSvgIcon-colorDisabled MuiSvgIcon-fontSizeMedium css-1db085k-MuiSvgIcon-root"
+                      data-testid="InfoIcon"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    className="MuiTablePagination-root css-jtlhu6-MuiTablePagination-root"
+  >
+    <div
+      className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular MuiTablePagination-toolbar css-11bfvty-MuiToolbar-root-MuiTablePagination-toolbar"
+    >
+      <div
+        className="MuiTablePagination-spacer css-1psng7p-MuiTablePagination-spacer"
+      />
+      <p
+        className="MuiTablePagination-selectLabel css-pdct74-MuiTablePagination-selectLabel"
+      >
+        Rows per page:
+      </p>
+      <div
+        className="MuiInputBase-root MuiInputBase-colorPrimary css-16c50h-MuiInputBase-root-MuiTablePagination-select"
+        onClick={[Function]}
+      >
+        <div
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          className="MuiTablePagination-select MuiSelect-select MuiSelect-standard MuiInputBase-input css-194a1fa-MuiSelect-select-MuiInputBase-input"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          25
+        </div>
+        <input
+          aria-hidden={true}
+          className="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
+          onAnimationStart={[Function]}
+          onChange={[Function]}
+          tabIndex={-1}
+          value={25}
+        />
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiTablePagination-selectIcon MuiSelect-icon MuiSelect-iconStandard css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon"
+          data-testid="ArrowDropDownIcon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+      <p
+        className="MuiTablePagination-displayedRows css-levciy-MuiTablePagination-displayedRows"
+      >
+        26–50 of 100
+      </p>
+      <div
+        className="MuiTablePagination-actions"
+      >
+        <button
+          aria-label="Go to previous page"
+          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Go to previous page"
+          type="button"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+            data-testid="KeyboardArrowLeftIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"
+            />
+          </svg>
+        </button>
+        <button
+          aria-label="Go to next page"
+          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onContextMenu={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Go to next page"
+          type="button"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+            data-testid="KeyboardArrowRightIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

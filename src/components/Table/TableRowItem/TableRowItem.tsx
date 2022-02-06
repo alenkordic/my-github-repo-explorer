@@ -28,7 +28,7 @@ const TableRowItem = ({
       <TableCell>
         <Grid container flexDirection="row">
           <Grid item display="flex" alignItems="center">
-            <Avatar alt="Remy Sharp" src={avatar} />
+            <Avatar alt={owner} src={avatar} />
           </Grid>
 
           <Grid item flexGrow={1}>

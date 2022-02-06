@@ -24,27 +24,26 @@ export interface RepositoryItem {
   ownerType: string;
 }
 export interface SearchRepositoriesResponse {
-  incomplete_results: boolean;
+  incomplete_results: number;
   items: RepositoryItem[];
   total_count: number;
-  duration: number | undefined;
+  duration?: number;
 }
 
 export interface RepositoryItemDetails extends RepositoryItem {
-  url?: string;
-  ownersUrl?: string;
-  createdAt?: string | Date;
-  updatedAt?: string | Date;
-  watchers?: number;
-  forks?: number;
+  url: string;
+  ownersUrl: string;
+  createdAt: string;
+  updatedAt: string ;
+  watchers: number;
+  forks: number;
   visibility: string;
-  issues?: number;
-  duration?: number | undefined;
+  issues: number;
+  duration?: number;
 }
 
 // PROPS
 export interface TableProps {
-  isDataLoading: boolean;
   repositories: SearchRepositoriesResponse;
   setPage: (s: number) => void;
   setRowsPerPage: (s: number) => void;
@@ -57,5 +56,6 @@ export interface SearchViewProps extends TableProps {
   onInputChange: (s: string) => void;
   searchInputValue: string;
   searchString: string;
+  isDataLoading: boolean;
 }
 

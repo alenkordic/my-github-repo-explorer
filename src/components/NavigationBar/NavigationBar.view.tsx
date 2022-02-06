@@ -70,7 +70,7 @@ const NavigationBarView = ({
               <>
                 <Tooltip title="Profile">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src={user?.avatar_url} />
+                    <Avatar alt={user?.login} src={user?.avatar_url} />
                   </IconButton>
                 </Tooltip>
                 <Menu

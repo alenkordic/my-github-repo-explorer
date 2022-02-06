@@ -47,8 +47,7 @@ interface DetailsVIewProps {
 
 const DetailsView = ({repository, readMe}:DetailsVIewProps) => {
   const [expanded, setExpanded] = React.useState<boolean>(false);
-  // console.log("daaaaaaa", data);
-  // console.log("readMereadMe", readMe);
+
   const {
     avatar,
     owner,
@@ -59,8 +58,8 @@ const DetailsView = ({repository, readMe}:DetailsVIewProps) => {
     watchers,
     forks,
     description,
-    createdAt = "2519519198",
-    updatedAt = "2519519198",
+    createdAt,
+    updatedAt,
     duration
   } = repository;
 

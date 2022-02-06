@@ -18,7 +18,7 @@ const DetailsContainer = (): JSX.Element => {
   );
 
   const {
-    data: readMeContent,
+    data: readMeContent = "",
     isLoading: readMeIsLoading,
     error
   } = useQuery(["readme", owner, repoName], () =>
@@ -33,13 +33,15 @@ const DetailsContainer = (): JSX.Element => {
 
   console.log("repositoryrepository", repository)
   let encodedReadMe;
-  if(readMeContent) {
-    encodedReadMe = encodeBase64ToString(readMeContent);
-  }
-
+  // if(readMeContent) {
+  //   encodedReadMe = encodeBase64ToString(readMeContent);
+  // }
+  
+  encodedReadMe = encodeBase64ToString(readMeContent);
   const read = readMeContent;
 
 
+  console.log("repository",repository)
 
 
   return <DetailsView repository={repository} readMe={encodedReadMe}/>;
