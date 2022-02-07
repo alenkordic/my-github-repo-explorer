@@ -36,11 +36,8 @@ const DetailsContainer = (): JSX.Element => {
     <>
       <Helmet>
         <title>Details | Git Repo Explorer</title>
-        <meta
-          charSet="utf-8"
-          name="description"
-          content="This is repository details page."
-        />
+        <meta charSet="utf-8" />
+        <meta name="description" content="This is repository details page" />
         <link
           rel="canonical"
           href={`http://localhost:3000/repositories/${owner}/${repoName}`}
