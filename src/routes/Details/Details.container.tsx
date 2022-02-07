@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { Loader } from "../../components";
 
@@ -31,7 +32,23 @@ const DetailsContainer = (): JSX.Element => {
     return <Loader text="Loading details..." />;
   }
 
-  return <DetailsView repository={repository} readMe={readMeContent} />;
+  return (
+    <>
+      <Helmet>
+        <title>Details | Git Repo Explorer</title>
+        <meta
+          charSet="utf-8"
+          name="description"
+          content="This is repository details page."
+        />
+        <link
+          rel="canonical"
+          href={`http://localhost:3000/repositories/${owner}/${repoName}`}
+        />
+      </Helmet>
+      <DetailsView repository={repository} readMe={readMeContent} />
+    </>
+  );
 };
 
 export default DetailsContainer;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { getRepositories } from "./../../services/api";
 import SearchView from "./Search.view";
@@ -40,18 +41,29 @@ const SearchContainer = (): JSX.Element => {
   };
 
   return (
-    <SearchView
-      onInputChange={onInputChangeHandler}
-      searchInputValue={searchString}
-      isDataLoading={isLoading}
-      repositories={repositories}
-      setPage={setPage}
-      setRowsPerPage={setRowsPerPage}
-      rowsPerPage={rowsPerPage}
-      page={page}
-      responseTime={repositories?.duration}
-      searchString={searchString}
-    />
+    <>
+      <Helmet>
+      <meta
+          charSet="utf-8"
+          name="description"
+          content="This is repositories search page."
+        />
+        <title>Search | Git Repo Explorer</title>
+        <link rel="canonical" href="http://localhost:3000/repositories" />
+      </Helmet>
+      <SearchView
+        onInputChange={onInputChangeHandler}
+        searchInputValue={searchString}
+        isDataLoading={isLoading}
+        repositories={repositories}
+        setPage={setPage}
+        setRowsPerPage={setRowsPerPage}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        responseTime={repositories?.duration}
+        searchString={searchString}
+      />
+    </>
   );
 };
 
