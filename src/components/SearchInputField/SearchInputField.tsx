@@ -34,6 +34,7 @@ const SearchInputField = ({ onChange, value }: SearchInputFieldProps) => {
       variant="outlined"
       value={searchString}
       onChange={onChangeHandler}
+      data-cy="searchInputField"
     />
   );
 };

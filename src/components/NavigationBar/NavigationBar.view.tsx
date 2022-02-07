@@ -42,6 +42,7 @@ const NavigationBarView = ({
   return (
     <AppBar
       position="fixed"
+      data-cy="navbar"
       sx={{ minHeight: 70, justifyContent: "center", marginBottom: 10 }}
     >
       <Container maxWidth="xl">
@@ -61,7 +62,7 @@ const NavigationBarView = ({
             {!isAuthenticated && <LoginButton />}
           </Box>
 
-          <Box mr={2}>
+          <Box mr={2} data-cy="userNameText">
             <Typography>{isAuthenticated ? user?.login : "Guest"}</Typography>{" "}
           </Box>
 

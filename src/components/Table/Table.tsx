@@ -40,7 +40,7 @@ const Table = ({
   };
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <Paper sx={{ width: "100%", overflow: "hidden" }} data-cy="tableContainer">
       <TableContainer sx={{ maxHeight: 400 }}>
         <MUITable stickyHeader aria-label="sticky table" size="medium">
           <TableHead>
@@ -71,6 +71,7 @@ const Table = ({
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        data-cy="pagination"
       />
     </Paper>
   );

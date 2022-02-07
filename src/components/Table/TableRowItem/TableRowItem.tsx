@@ -24,7 +24,13 @@ const TableRowItem = ({
   const classes = useStyles();
 
   return (
-    <TableRow className={classes.root} hover role="checkbox" tabIndex={-1}>
+    <TableRow
+      className={classes.root}
+      hover
+      role="checkbox"
+      tabIndex={-1}
+      data-cy="tableRowItem"
+    >
       <TableCell>
         <Grid container flexDirection="row">
           <Grid item display="flex" alignItems="center">

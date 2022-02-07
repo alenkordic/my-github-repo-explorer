@@ -31,15 +31,18 @@ const LoginButton = () => {
   };
 
   return (
-    <div data-test="loginButton">
+    <div data-test="loginButton" data-cy="authButtonGroup">
       {isAuthenticated && (
-        <MenuItem onClick={handleLogout}>
+        <MenuItem onClick={handleLogout} data-cy="logoutButton">
           <Typography textAlign="center">Logout</Typography>
         </MenuItem>
       )}
 
       {!isAuthenticated && (
-        <Button sx={{ my: 2, color: "white", display: "block" }}>
+        <Button
+          sx={{ my: 2, color: "white", display: "block" }}
+          data-cy="loginButton"
+        >
           <a
             href={`https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}&redirect_uri=${redirect_uri}`}
             style={{ textDecoration: "none", color: "inherit" }}

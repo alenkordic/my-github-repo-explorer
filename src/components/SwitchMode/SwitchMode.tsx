@@ -61,7 +61,7 @@ export default function SwitchMode() {
   };
 
   return (
-    <FormGroup>
+    <FormGroup data-cy="switchButton">
       <FormControlLabel
         control={<MaterialUISwitch sx={{ m: 1 }} />}
         label={`${darkMode ? "Dark" : "Light"} mode  `}
