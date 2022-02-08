@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-import { LoginButton, SwitchMode } from "./../../components";
+import { LoginButton, SwitchMode } from "../../components";
 
 interface User {
   avatar_url: string;

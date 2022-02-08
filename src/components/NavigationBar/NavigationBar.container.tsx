@@ -1,13 +1,12 @@
 import React from "react";
 import { useQuery } from "react-query";
 
-import NavigationBarView from "./NavigationBar.view";
-import { getUser } from "./../../services/api";
-import { useAuthContext } from "./../../contexts/auth.context";
+import NavigationBarView from "../NavigationBar/NavigationBar.view";
+import { getUser } from "../../services/api";
+import { useAuthContext } from "../../contexts/auth.context";
 
 const NavigationBarContainer = () => {
   const { isAuthenticated } = useAuthContext();
-  // const user = { avatar_url: "avatarurl", login: "alenHard" };
   const {
     data: user,
     isLoading,

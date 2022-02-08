@@ -2,9 +2,9 @@ import React from "react";
 import { MenuItem, Typography, Button } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
-import { useAuthContext } from "./../../contexts/auth.context";
-import { getTokens } from "./../../services/api";
-import { client_id, redirect_uri } from "./../../constants/enviroments";
+import { useAuthContext } from "../../contexts/auth.context";
+import { getTokens } from "../../services/api";
+import { client_id, redirect_uri } from "../../constants/enviroments";
 
 interface TokensProps {
   accessToken: string;

@@ -4,8 +4,7 @@ import { render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer";
 
 import SwitchMode from "../SwitchMode";
-
-import { ThemeContext } from "./../../../contexts/theme.context";
+import { ThemeContext } from "../../../contexts/theme.context";
 
 function switchTheme(darkMode: boolean) {
   const value = {

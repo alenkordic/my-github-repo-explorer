@@ -3,6 +3,7 @@
 exports[`Switch Dark is mode render correctly 1`] = `
 <div
   className="MuiFormGroup-root css-dmmspl-MuiFormGroup-root"
+  data-cy="switchButton"
 >
   <label
     className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementBottom css-77as7c-MuiFormControlLabel-root"
@@ -52,6 +53,7 @@ exports[`Switch Dark is mode render correctly 1`] = `
 exports[`Switch Light is mode render correctly 1`] = `
 <div
   className="MuiFormGroup-root css-dmmspl-MuiFormGroup-root"
+  data-cy="switchButton"
 >
   <label
     className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementBottom css-77as7c-MuiFormControlLabel-root"

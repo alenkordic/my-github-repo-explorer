@@ -2,10 +2,12 @@
 
 exports[`Login btn render correctly 1`] = `
 <div
+  data-cy="authButtonGroup"
   data-test="loginButton"
 >
   <button
     className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1q39md6-MuiButtonBase-root-MuiButton-root"
+    data-cy="loginButton"
     disabled={false}
     onBlur={[Function]}
     onContextMenu={[Function]}
@@ -43,10 +45,12 @@ exports[`Login btn render correctly 1`] = `
 
 exports[`Logout btn render correctly 1`] = `
 <div
+  data-cy="authButtonGroup"
   data-test="loginButton"
 >
   <li
     className="MuiMenuItem-root MuiMenuItem-gutters MuiButtonBase-root css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root"
+    data-cy="logoutButton"
     onBlur={[Function]}
     onClick={[Function]}
     onContextMenu={[Function]}

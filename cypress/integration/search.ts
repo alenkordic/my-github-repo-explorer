@@ -16,8 +16,8 @@ describe("Main init UI.", () => {
   });
 });
 
-describe("Search for repositories.", () => {
-  it("Search for repositories as guest.", () => {
+describe("Search.", () => {
+  it("Search for repositories.", () => {
     cy.visit("http://localhost:3000/repositories");
     cy.get("[data-cy=searchInputField] input").clear();
     cy.get("[data-cy=searchInputField] input").should("be.empty");

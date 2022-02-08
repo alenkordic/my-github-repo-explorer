@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const FormData = require("form-data");
 const fetch = require("node-fetch");
+
 const { client_id, redirect_uri, client_secret } = require("./config");
 
 const app = express();
@@ -31,7 +32,7 @@ app.post("/authenticate", (req, res) => {
   // Request to exchange code for an access token
   fetch(`https://github.com/login/oauth/access_token`, {
     method: "POST",
-    body: data,
+    body: data
   })
     .then((response) => response.text())
     .then((paramsString) => {
@@ -62,7 +63,7 @@ app.post("/refresh_token", (req, res) => {
   // Request to exchange code for an access token
   fetch(`https://github.com/login/oauth/access_token`, {
     method: "POST",
-    body: data,
+    body: data
   })
     .then((response) => response.text())
     .then((paramsString) => {
